@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gray-50 to-gray-100">
+  <div class="w-full max-w-3xl bg-white rounded-xl shadow-lg overflow-hidden">
+    <div class="flex flex-col md:flex-row">
+      <!-- صورة المتجر -->
+      <div class="w-full md:w-1/3 bg-gray-50 p-8 flex flex-col items-center">
+        <div class="profile-picture-container relative group">
+          <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-md">
+            <img src="{% if store and store.image %}{{ store.image.url }}{% else %}{% static 'UD/images/default-profile.png' %}{% endif %}"
+                 alt="Store Image"
+                 class="w-full h-full object-cover object-top"
+                 id="store_image_preview">
+          </div>
+          <div class="edit-overlay absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+            <label for="store_image" class="cursor-pointer">
+              <i class="ri-camera-line ri-xl text-white"></i>
+            </label>
+          </div>
+        </div>
+        <h2 class="mt-6 text-2xl font-semibold text-gray-800">{{ store.name|default:'متجرك' }}</h2>
+      </div>
+      <!-- نموذج بيانات المتجر -->
+      <div class="w-full md:w-2/3 p-8">
+        {% if messages %}
+          <div class="mb-4 space-y-2">
+            {% for message in messages %}
+              <div class="p-4 rounded-lg shadow-lg {% if message.tags == 'success' %}bg-green-500{% else %}bg-red-500{% endif %} text-white flex items-center justify-between min-w-[300px]">
+                <span>{{ message }}</span>
+                <button class="close-message"><i class="ri-close-line"></i></button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+          {% csrf_token %}
+          <input type="file" name="image" id="store_image" accept="image/*" class="hidden">
+          <div class="input-wrapper">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {% for error in form.name.errors %}
+              <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+            {% endfor %}
+          </div>
+          <div class="input-wrapper">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+            {% for error in form.description.errors %}
+              <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="w-full bg-primary text-white py-3 rounded-button hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+            <span>حفظ التغييرات</span>
+            <i class="ri-save-line"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// Store Image Preview
+const input = document.getElementById('store_image');
+if (input) {
+  input.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('store_image_preview').src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+}
+// Close message
+const closeBtns = document.querySelectorAll('.close-message');
+closeBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.parentElement.style.display = 'none';
+  });
+});
+</script>
+{% endblock %} 
