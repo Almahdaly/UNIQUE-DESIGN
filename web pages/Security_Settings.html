@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Settings</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config={
+            theme:{
+                extend:{
+                    colors:{
+                        primary:'#2196F3',
+                        secondary:'#4CAF50'
+                    },
+                    borderRadius:{
+                        'none':'0px',
+                        'sm':'4px',
+                        DEFAULT:'8px',
+                        'md':'12px',
+                        'lg':'16px',
+                        'xl':'20px',
+                        '2xl':'24px',
+                        '3xl':'32px',
+                        'full':'9999px',
+                        'button':'8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e2e8f0;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .toggle-slider {
+            background-color: #2196F3;
+        }
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 8px;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: #e2e8f0;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #2196F3;
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #2196F3;
+            cursor: pointer;
+        }
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+        .ripple:active:after {
+            transform: scale(0, 0);
+            opacity: .3;
+            transition: 0s;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-white shadow-sm py-4 px-6">
+            <div class="container mx-auto flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="{% url 'UD:settings' %}" class="flex items-center justify-center w-10 h-10 text-gray-600 hover:bg-gray-100 rounded-full cursor-pointer">
+                        <i class="ri-arrow-left-line ri-lg"></i>
+                    </a>
+                    <h1 class="text-xl font-semibold text-gray-800 ml-4">Security Settings</h1>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-6 py-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800">Security Settings</h2>
+                    <p class="text-gray-600 mt-2">Manage your account security preferences and settings to keep your account safe.</p>
+                </div>
+
+                <!-- Password Settings -->
+                <div class="bg-white rounded shadow-sm p-6 mb-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-full mr-4">
+                            <i class="ri-lock-password-line ri-xl text-primary"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-1">Password Settings</h3>
+                            <p class="text-gray-600 text-sm mb-4">Manage your password and security preferences.</p>
+                                                        
+                            <div class="bg-gray-50 rounded p-4 mb-4">
+                                <h4 class="text-sm font-medium text-gray-800 mb-2">Password Strength</h4>
+                                <div class="flex items-center">
+                                    <div class="flex-grow">
+                                        <div class="w-full bg-gray-200 rounded-full h-1">
+                                            <div id="passwordStrengthBar" class="h-1 rounded-full" style="width: {{ password_strength_percentage }}%"></div>
+                                        </div>
+                                    </div>
+                                    <span id="passwordStrengthText" class="ml-3 text-sm font-medium">
+                                        {% if password_strength <= 2 %}
+                                            Week
+                                        {% elif password_strength <= 4 %}
+                                            Medium
+                                        {% else %}
+                                            Strong
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2">Current Password Strength</p>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device Management -->
+                <div class="bg-white rounded shadow-sm p-6 mb-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-full mr-4">
+                            <i class="ri-computer-line ri-xl text-primary"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="text-lg font-semibold text-gray-800">Device Management</h3>
+                                <span class="px-2 py-1 bg-blue-50 text-primary text-xs font-medium rounded-full">{{ devices|length }} Device{{ devices|length|pluralize }}</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Manage connected devices to your account.</p>
+                            
+                            <div class="space-y-4 mb-4">
+                                {% for device in devices %}
+                                <div class="flex items-center p-3 bg-gray-50 rounded">
+                                    <div class="w-10 h-10 flex items-center justify-center bg-white rounded-full mr-3 shadow-sm">
+                                        {% if 'Windows' in device.os %}
+                                            <i class="ri-windows-line ri-lg text-gray-700"></i>
+                                        {% elif 'Mac' in device.os %}
+                                            <i class="ri-macbook-line ri-lg text-gray-700"></i>
+                                        {% elif 'iPhone' in device.os or 'iPad' in device.os %}
+                                            <i class="ri-apple-line ri-lg text-gray-700"></i>
+                                        {% elif 'Android' in device.os %}
+                                            <i class="ri-android-line ri-lg text-gray-700"></i>
+                                        {% else %}
+                                            <i class="ri-computer-line ri-lg text-gray-700"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="flex items-center">
+                                            <p class="text-sm font-medium text-gray-800">{{ device.device_name }}</p>
+                                            {% if device.is_current %}
+                                                <span class="ml-2 px-1.5 py-0.5 bg-green-100 text-green-800 text-xs rounded">Current</span>
+                                            {% endif %}
+                                        </div>
+                                        <p class="text-xs text-gray-600">Operating System: {{ device.os }}</p>
+                                        <p class="text-xs text-gray-600">Browser: {{ device.browser }}</p>
+                                        <p class="text-xs text-gray-600">Last Activity: {{ device.last_activity|timesince }} ago</p>
+                                        <p class="text-xs text-gray-600">IP: {{ device.ip_address }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Security Settings -->
+                <div class="bg-white rounded shadow-sm p-6 mb-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-full mr-4">
+                            <i class="ri-settings-4-line ri-xl text-primary"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-1">Advanced Security Settings</h3>
+                            <p class="text-gray-600 text-sm mb-4">Configure additional security options for your account.</p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Suspicious Activity Alerts</p>
+                                        <p class="text-xs text-gray-600 mt-1">Receive alerts about suspicious activities related to your account.</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Require Email Confirmation</p>
+                                        <p class="text-xs text-gray-600 mt-1">Require email confirmation before changing your password.</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <br>
+    <br>
+    <br>
+<footer class="bg-gray-100 shadow-sm z-50 flex items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="{% url 'UD:home' %}" class="font-['Pacifico'] text-2xl text-primary">Unique Design</a>
+                <p class="mt-4 text-gray-600">Create your dream online store with our easy-to-use platform.</p>
+            </div>
+            <div>
+                <h4 class="font-semibold text-gray-900 mb-4">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="{% url 'UD:home' %}" class="text-gray-600 hover:text-primary">Home</a></li>
+                    <li><a href="{% url 'UD:about-us' %}" class="text-gray-600 hover:text-primary">About</a></li>
+                    <li><a href="{% url 'UD:support' %}" class="text-gray-600 hover:text-primary">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-gray-900 mb-4">Service</h4>
+                <ul class="space-y-2">
+                    <li><a href="{% url 'UD:settings' %}" class="text-gray-600 hover:text-primary">Settings</a></li>
+                    <li><a href="{% url 'UD:privacy_policy' %}" class="text-gray-600 hover:text-primary">Privacy Policy</a></li>
+                    <li><a href="{% url 'UD:terms_of_service' %}" class="text-gray-600 hover:text-primary">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-gray-900 mb-4">Support</h4>
+                <ul class="space-y-2">
+                    <li><a href="{% url 'UD:support' %}" class="text-gray-600 hover:text-primary">Support</a></li>
+                    <li><a href="{% url 'UD:profile_info' %}" class="text-gray-600 hover:text-primary">Profile info</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-200 mt-12 pt-8 flex justify-between items-center">
+            <p class="text-gray-600">&copy; 2025 Unique Design. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-600 hover:text-primary">
+                    <i class="ri-facebook-fill"></i>
+                </a>
+                <a href="#" class="text-gray-600 hover:text-primary">
+                    <i class="ri-twitter-fill"></i>
+                </a>
+                <a href="#" class="text-gray-600 hover:text-primary">
+                    <i class="ri-instagram-fill"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <script>
+        // Toggle switches animation
+        const toggles = document.querySelectorAll('.toggle-switch input');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const slider = this.nextElementSibling;
+                if (this.checked) {
+                    slider.style.transition = '0.4s';
+                } else {
+                    slider.style.transition = '0.4s';
+                }
+            });
+        });
+
+        // Password strength checker
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            
+            // Check length
+            if (password.length >= 8) strength += 1;
+            if (password.length >= 12) strength += 1;
+            
+            // Check for numbers
+            if (/\d/.test(password)) strength += 1;
+            
+            // Check for lowercase
+            if (/[a-z]/.test(password)) strength += 1;
+            
+            // Check for uppercase
+            if (/[A-Z]/.test(password)) strength += 1;
+            
+            // Check for special characters
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+            
+            return strength;
+        }
+
+        function updatePasswordStrength(password) {
+            const strength = checkPasswordStrength(password);
+            const bar = document.getElementById('passwordStrengthBar');
+            const text = document.getElementById('passwordStrengthText');
+            
+            // Calculate percentage
+            const percentage = (strength / 6) * 100;
+            
+            // Update bar width and color
+            bar.style.width = percentage + '%';
+            
+            if (strength <= 2) {
+                bar.style.backgroundColor = '#ef4444'; // red
+                text.textContent = 'Week';
+                text.style.color = '#ef4444';
+            } else if (strength <= 4) {
+                bar.style.backgroundColor = '#f59e0b'; // yellow
+                text.textContent = 'Medium';
+                text.style.color = '#f59e0b';
+            } else {
+                bar.style.backgroundColor = '#10b981'; // green
+                text.textContent = 'Strong';
+                text.style.color = '#10b981';
+            }
+        }
+
+        // Check password strength on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const bar = document.getElementById('passwordStrengthBar');
+            const text = document.getElementById('passwordStrengthText');
+            
+            // Set color based on strength
+            const strength = {{ password_strength }};
+            if (strength <= 2) {
+                bar.style.backgroundColor = '#ef4444'; // red
+                text.style.color = '#ef4444';
+            } else if (strength <= 4) {
+                bar.style.backgroundColor = '#f59e0b'; // yellow
+                text.style.color = '#f59e0b';
+            } else {
+                bar.style.backgroundColor = '#10b981'; // green
+                text.style.color = '#10b981';
+            }
+        });
+
+    </script>
+</body>
+</html>

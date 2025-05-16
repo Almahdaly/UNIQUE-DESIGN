@@ -127,3 +127,19 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom user model
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Email settings (للتطوير فقط)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # غيّرها إلى SMTP عند رفع المشروع للإنتاج
+
+# إعدادات SMTP للإنتاج (قم بإزالة التعليقات عند رفع المشروع)
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+# EMAIL_PORT = 2525
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = '02e2810734bfb4'
+# EMAIL_HOST_PASSWORD = 'a6f5ec08f7b138'
+# DEFAULT_FROM_EMAIL = 'tae99rn@gmail.com'
+# SERVER_EMAIL = 'tae99rn@gmail.com'

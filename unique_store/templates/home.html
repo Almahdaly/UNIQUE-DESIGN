@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Design - الصفحة الرئيسية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+    <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+        {% if user.is_authenticated %}
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">مرحبًا {{ user.full_name }} 👋</h2>
+            <p class="text-gray-600 mb-6">سعيدون بعودتك إلى Unique Design!</p>
+            <a href="/accounts/logout/" class="inline-block mt-4 px-6 py-2 button-main">تسجيل الخروج</a>
+        {% else %}
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">مرحبًا بك في Unique Design!</h2>
+            <p class="text-gray-600 mb-6">سجّل الدخول أو أنشئ حسابك لتجربة أفضل التصاميم والمتاجر الخاصة.</p>
+            <a href="/accounts/login/" class="inline-block mt-4 px-6 py-2 button-main">تسجيل الدخول</a>
+            <a href="/accounts/register/" class="inline-block mt-4 px-6 py-2 button-main ml-2">إنشاء حساب</a>
+        {% endif %}
+    </div>
+    <style>
+    .button-main {
+        background: linear-gradient(90deg, #6366f1 0%, #4f46e5 100%);
+        color: #fff;
+        font-weight: bold;
+        box-shadow: 0 2px 8px #6366f133;
+        border-radius: 8px;
+        transition: background 0.2s, box-shadow 0.2s;
+    }
+    .button-main:hover {
+        background: linear-gradient(90deg, #4f46e5 0%, #6366f1 100%);
+        box-shadow: 0 4px 16px #6366f155;
+    }
+    </style>
+</body>
+</html> 
