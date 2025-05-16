@@ -34,8 +34,8 @@ def public_store(request, slug):
     store = Store.objects.filter(slug=slug, is_active=True).first()
     if not store:
         return render(request, '404.html', status=404)
-    # المنتجات ستربط لاحقًا
-    products = []
+    # جلب المنتجات الفعلية المرتبطة بالمتجر
+    products = store.products.all()
     return render(request, 'stores/public_store.html', {
         'store': store,
         'products': products,
