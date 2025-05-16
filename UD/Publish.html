@@ -1,0 +1,499 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="site-title">Unique Design</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+body {
+font-family: 'Inter', sans-serif;
+}
+        .hide-number-arrows::-webkit-outer-spin-button,
+        .hide-number-arrows::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .hide-number-arrows {
+            -moz-appearance: textfield;
+        }
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+<!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center">
+<h1 id="site-title" class="text-2xl font-['Pacifico'] text-primary">Unique Design</h1>
+</div>
+<div class="flex items-center space-x-4">
+<a href="{% url 'UD:about-us' %}" class="flex items-center gap-2 text-gray-600 hover:text-primary">
+<i class="ri-information-line"></i>
+<span>About Us</span>
+</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button id="wishlist-btn" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition-colors relative">
+                    <i class="ri-heart-line text-xl"></i>
+                    <span id="wishlist-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+                <button id="cart-btn" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition-colors relative">
+                    <i class="ri-shopping-cart-line text-xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+</div>
+</div>
+</header>
+
+<!-- Main Content -->
+<main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="hero-section" class="relative h-[500px] bg-gray-100 overflow-hidden">
+            <div id="hero-bg" class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/6d3045aa5c188a5d96bfa3569dbc49b1.jpg');">
+                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            </div>
+            <div class="container mx-auto px-4 py-16 md:py-24 relative">
+                <div class="max-w-xl">
+                    <h1 id="hero-title" class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">Spring Collection 2025</h1>
+                    <p id="hero-subtitle" class="text-lg text-gray-300 mb-8">Discover our latest arrivals with up to 40% off. Limited time offer on selected items.</p>
+                </div>
+            </div>
+        </section>
+<div>
+    {%for i in pro%}
+
+    <i class="name">i.name</i>
+    {%endfor%}
+</div>
+        <!-- Trending Now Section -->
+        <section id="trending-section" class="py-12 px-4">
+            <div class="container mx-auto">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8">Trending Now</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="trending-products">
+                    <!-- Product Cards will be dynamically generated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Flash Deals Section -->
+        <section id="deals-section" class="py-12 px-4 bg-gray-50">
+            <div class="container mx-auto">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8">Flash Deals</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="deals-products">
+                    <!-- Product Cards will be dynamically generated -->
+    </div>
+</div>
+        </section>
+
+        <!-- Custom Sections -->
+        <div id="custom-sections"></div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white pt-12 pb-6">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-xl font-['Pacifico'] mb-4">Unique Design</h3>
+                <p class="text-gray-400 mb-4">Your one-stop destination for trendy fashion and accessories at affordable prices.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center">
+                        <i class="ri-instagram-fill"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center">
+                        <i class="ri-twitter-fill"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center">
+                        <i class="ri-youtube-fill"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Shop</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">New Arrivals</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Best Sellers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Discounted</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Clothing</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Accessories</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Help</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQs</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Shipping Policy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Returns & Exchanges</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Size Guide</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                <p class="text-gray-400 mb-4">Subscribe to receive updates, access to exclusive deals, and more.</p>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm">2025 Unique Design. All rights reserved.</p>
+            <div class="flex space-x-4 mt-4 md:mt-0">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookies Settings</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Wishlist Panel -->
+    <div id="wishlist-panel" class="fixed right-0 top-0 h-screen bg-white shadow-lg z-50 w-80 transform translate-x-full transition-transform duration-300">
+        <div class="flex flex-col h-full">
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-800">Wishlist</h3>
+                <button id="close-wishlist" class="text-gray-500 hover:text-gray-700">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div id="wishlist-items" class="flex-grow overflow-y-auto p-4 space-y-4">
+                <!-- Wishlist items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white !rounded-button max-w-2xl w-full max-h-[90vh] flex flex-col">
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-800">Shopping Cart</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="flex-grow overflow-y-auto p-4 space-y-4">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-gray-700">Total:</span>
+                    <span id="cart-total" class="text-lg font-semibold text-gray-900">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">
+                    Place Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            const currentUserId = '{{ request.user.id }}';
+            let cart = JSON.parse(localStorage.getItem(`cart_${currentUserId}`)) || [];
+            let wishlist = JSON.parse(localStorage.getItem(`wishlist_${currentUserId}`)) || [];
+            let products = JSON.parse(localStorage.getItem(`products_${currentUserId}`)) || {};
+            let sections = JSON.parse(localStorage.getItem(`sections_${currentUserId}`)) || [];
+            let settings = JSON.parse(localStorage.getItem(`settings_${currentUserId}`)) || {};
+
+            // Update site title if settings exist
+            if (settings.name) {
+                document.getElementById('site-title').textContent = settings.name;
+                document.title = settings.name;
+            }
+
+            // Load hero background if saved
+            const savedHeroBg = localStorage.getItem(`hero-bg_${currentUserId}`);
+            if (savedHeroBg) {
+                document.getElementById('hero-bg').style.backgroundImage = `url('${savedHeroBg}')`;
+            }
+
+            // Load theme if saved
+            const savedTheme = JSON.parse(localStorage.getItem(`theme_${currentUserId}`));
+            if (savedTheme) {
+                const style = document.createElement('style');
+                style.textContent = `
+                    :root {
+                        --color-primary: ${savedTheme.primary};
+                    }
+                    .bg-primary { background-color: ${savedTheme.primary} !important; }
+                    .text-primary { color: ${savedTheme.primary} !important; }
+                    .border-primary { border-color: ${savedTheme.primary} !important; }
+                    .ring-primary { --tw-ring-color: ${savedTheme.primary} !important; }
+                `;
+                style.id = 'custom-theme';
+                document.head.appendChild(style);
+            }
+
+            // Render products
+            renderProducts('trending', products.trending || []);
+            renderProducts('deals', products.deals || []);
+            renderCustomSections();
+            updateCartCount();
+            updateWishlistCount();
+
+            // Wishlist panel toggle
+            document.getElementById('wishlist-btn').addEventListener('click', function() {
+                renderWishlistItems();
+                document.getElementById('wishlist-panel').classList.toggle('translate-x-full');
+            });
+            document.getElementById('close-wishlist').addEventListener('click', function() {
+                document.getElementById('wishlist-panel').classList.add('translate-x-full');
+            });
+
+            // Cart modal toggle
+            document.getElementById('cart-btn').addEventListener('click', function() {
+                renderCartItems();
+                document.getElementById('cart-modal').classList.remove('hidden');
+            });
+            document.getElementById('close-cart').addEventListener('click', function() {
+                document.getElementById('cart-modal').classList.add('hidden');
+            });
+
+            // Checkout
+            document.getElementById('checkout-btn').addEventListener('click', function() {
+                alert('Order placed successfully!');
+                cart = [];
+                localStorage.setItem(`cart_${currentUserId}`, JSON.stringify(cart));
+                renderCartItems();
+                updateCartCount();
+                document.getElementById('cart-modal').classList.add('hidden');
+            });
+
+            function renderProducts(section, productsList) {
+                const container = document.getElementById(`${section}-products`);
+                container.innerHTML = '';
+                if (productsList.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-full text-center py-8">
+                            <p class="text-gray-500">No products found.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                productsList.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'bg-white !rounded-button shadow-sm overflow-hidden transition-shadow hover:shadow-md';
+                    const isInWishlist = wishlist.some(item => item.id === product.id);
+                    productCard.innerHTML = `
+                        <div class="relative">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover object-top">
+                            <button class="wishlist-btn absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm !rounded-full shadow-sm hover:bg-white transition-colors ${isInWishlist ? 'text-red-500' : 'text-gray-400'}" data-id="${product.id}">
+                                <i class="ri-heart-${isInWishlist ? 'fill' : 'line'}"></i>
+                            </button>
+                            ${product.discountPrice ? `<span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 !rounded-button">-${Math.round((1 - product.discountPrice / product.price) * 100)}%</span>` : ''}
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-gray-900 font-medium mb-1">${product.name}</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-amber-400 mr-1">
+                                    ${generateStarRating(product.rating)}
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    ${product.discountPrice ?
+                                        `<span class="text-gray-900 font-semibold">${product.discountPrice}﷼</span>
+                                        <span class="text-gray-500 text-sm line-through ml-1">${product.price}﷼</span>` :
+                                        `<span class="text-gray-900 font-semibold">${product.price}﷼</span>`
+                                    }
+                                </div>
+                                <button class="add-to-cart-btn w-8 h-8 flex items-center justify-center bg-primary text-white !rounded-button hover:bg-opacity-90 transition-colors" data-id="${product.id}">
+                                    <i class="ri-shopping-cart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(productCard);
+
+                    // Add event listeners
+                    const wishlistBtn = productCard.querySelector('.wishlist-btn');
+                    wishlistBtn.addEventListener('click', function() {
+                        toggleWishlist(product);
+                    });
+                    const cartBtn = productCard.querySelector('.add-to-cart-btn');
+                    cartBtn.addEventListener('click', function() {
+                        addToCart(product);
+            });
+        });
+    }
+
+            function renderCustomSections() {
+                const container = document.getElementById('custom-sections');
+                container.innerHTML = '';
+                sections.forEach(section => {
+                    const sectionEl = document.createElement('section');
+                    sectionEl.id = section.id;
+                    sectionEl.className = `py-12 px-4 ${section.bg}`;
+                    sectionEl.innerHTML = `
+                        <div class="container mx-auto">
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8">${section.title}</h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="${section.id}-products">
+                                <!-- Products will be dynamically added here -->
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(sectionEl);
+                    renderProducts(section.id, products[section.id] || []);
+                });
+            }
+
+function generateStarRating(rating) {
+    let stars = '';
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+    for (let i = 0; i < fullStars; i++) {
+        stars += '<i class="ri-star-fill"></i>';
+    }
+    if (halfStar) {
+        stars += '<i class="ri-star-half-fill"></i>';
+    }
+    for (let i = 0; i < emptyStars; i++) {
+        stars += '<i class="ri-star-line"></i>';
+    }
+    return stars;
+}
+
+            function toggleWishlist(product) {
+                const index = wishlist.findIndex(item => item.id === product.id);
+                if (index === -1) {
+                    wishlist.push(product);
+                    alert(`${product.name} added to wishlist`);
+                } else {
+                    wishlist.splice(index, 1);
+                    alert(`${product.name} removed from wishlist`);
+                }
+                localStorage.setItem(`wishlist_${currentUserId}`, JSON.stringify(wishlist));
+                updateWishlistCount();
+                // Update wishlist button
+                const wishlistBtns = document.querySelectorAll(`.wishlist-btn[data-id="${product.id}"]`);
+                wishlistBtns.forEach(btn => {
+                    if (index === -1) {
+                        btn.classList.add('text-red-500');
+                        btn.classList.remove('text-gray-400');
+                        btn.innerHTML = '<i class="ri-heart-fill"></i>';
+                    } else {
+                        btn.classList.remove('text-red-500');
+                        btn.classList.add('text-gray-400');
+                        btn.innerHTML = '<i class="ri-heart-line"></i>';
+                    }
+                });
+                // Update wishlist panel if open
+                if (!document.getElementById('wishlist-panel').classList.contains('translate-x-full')) {
+                    renderWishlistItems();
+                }
+            }
+
+            function addToCart(product) {
+                const existingItem = cart.find(item => item.id === product.id);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        ...product,
+                        quantity: 1
+                    });
+                }
+                localStorage.setItem(`cart_${currentUserId}`, JSON.stringify(cart));
+                updateCartCount();
+                alert(`${product.name} added to cart`);
+            }
+
+            function updateCartCount() {
+                const count = cart.reduce((total, item) => total + item.quantity, 0);
+                document.getElementById('cart-count').textContent = count;
+            }
+
+            function updateWishlistCount() {
+                document.getElementById('wishlist-count').textContent = wishlist.length;
+            }
+
+            function renderWishlistItems() {
+                const container = document.getElementById('wishlist-items');
+                container.innerHTML = '';
+                if (wishlist.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-8">
+                            <p class="text-gray-500">Your wishlist is empty</p>
+                        </div>
+                    `;
+                    return;
+                }
+                wishlist.forEach(product => {
+                    const item = document.createElement('div');
+                    item.className = 'flex items-center space-x-3 p-2 hover:bg-gray-50 !rounded-button';
+                    item.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover object-top !rounded-button">
+                        <div class="flex-grow min-w-0">
+                            <h4 class="text-gray-900 font-medium truncate">${product.name}</h4>
+                            <div class="flex items-center text-sm">
+                                ${product.discountPrice ?
+                                `<span class="text-gray-900">${product.discountPrice}﷼</span>
+                                <span class="text-gray-500 line-through ml-1">${product.price}﷼</span>` :
+                                `<span class="text-gray-900">${product.price}﷼</span>`
+                                }
+                            </div>
+                        </div>
+                        <button class="add-to-cart-from-wishlist w-8 h-8 flex items-center justify-center bg-primary text-white !rounded-button hover:bg-opacity-90 transition-colors" data-id="${product.id}">
+                            <i class="ri-shopping-cart-line"></i>
+                        </button>
+                    `;
+                    container.appendChild(item);
+                    // Add event listener
+                    const addToCartBtn = item.querySelector('.add-to-cart-from-wishlist');
+                    addToCartBtn.addEventListener('click', function() {
+                        addToCart(product);
+                    });
+                });
+            }
+
+            function renderCartItems() {
+                const container = document.getElementById('cart-items');
+                container.innerHTML = '';
+                if (cart.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-8">
+                            <p class="text-gray-500">Your cart is empty</p>
+                        </div>
+                    `;
+                    document.getElementById('cart-total').textContent = '0.00﷼';
+                    return;
+                }
+                let total = 0;
+                cart.forEach(product => {
+                    const price = product.discountPrice || product.price;
+                    const itemTotal = price * product.quantity;
+                    total += itemTotal;
+                    const item = document.createElement('div');
+                    item.className = 'flex items-center space-x-3 p-2 hover:bg-gray-50 !rounded-button';
+                    item.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover object-top !rounded-button">
+                        <div class="flex-grow min-w-0">
+                            <h4 class="text-gray-900 font-medium truncate">${product.name}</h4>
+                            <div class="flex items-center text-sm">
+                                ${product.discountPrice ?
+                                `<span class="text-gray-900">${product.discountPrice}﷼</span>
+                                <span class="text-gray-500 line-through ml-1">${product.price}﷼</span>` :
+                                `<span class="text-gray-900">${product.price}﷼</span>`
+                                }
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 text-center">${product.quantity}</span>
+                        </div>
+                    `;
+                    container.appendChild(item);
+                });
+                document.getElementById('cart-total').textContent = `${total.toFixed(2)}﷼`;
+            }
+        });
+</script>
+</body>
+</html>

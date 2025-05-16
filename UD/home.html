@@ -1,0 +1,1477 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unique Design</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.hide-number-arrows::-webkit-outer-spin-button,
+.hide-number-arrows::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.hide-number-arrows {
+-mo.hide-number-arrows::-webkit-outer-spin-button,
+.hide-number-arrows::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.hide-number-arrows {
+    -moz-appearance: textfield;
+}z-appearance: textfield;
+}
+[contenteditable="true"]:focus {
+outline: 2px solid rgba(79, 70, 229, 0.2);
+border-radius: 4px;
+}
+.toast {
+animation: toast-in-out 3s ease-in-out forwards;
+pointer-events: none;
+}
+@keyframes toast-in-out {
+0% { opacity: 0; transform: translateY(20px); }
+10% { opacity: 1; transform: translateY(0); }
+90% { opacity: 1; transform: translateY(0); }
+100% { opacity: 0; transform: translateY(-20px); }
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+<!-- Header -->
+<header id="main-header" class="bg-white shadow-sm sticky top-0 z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center">
+<h1 id="site-title" class="text-2xl font-['Pacifico'] text-primary">Unique Design</h1>
+</div>
+<div class="flex items-center space-x-4">
+<a href="{% url 'UD:about-us' %}" class="flex items-center gap-2 text-gray-600 hover:text-primary">
+<i class="ri-information-line"></i>
+<span>About Us</span>
+</a>
+<a href="{% url 'UD:settings' %}" class="flex items-center gap-2 text-gray-600 hover:text-primary">
+<i class="ri-settings-line"></i>
+<span>Settings</span>
+</a>
+</div>
+<div class="flex items-center space-x-4">
+<button id="theme-toggle-btn" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition-colors">
+<i class="ri-palette-line text-xl"></i>
+</button>
+<button id="wishlist-btn" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition-colors relative">
+<i class="ri-heart-line text-xl"></i>
+<span id="wishlist-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+</button>
+<button id="cart-btn" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition-colors relative">
+<i class="ri-shopping-cart-line text-xl"></i>
+<span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+</button>
+<button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center text-gray-600">
+<i class="ri-menu-line text-xl"></i>
+</button>
+<button id="publish-btn" class="flex items-center bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">
+    <i class="ri-save-line mr-2"></i>
+    Publish
+</button>
+</div>
+</div>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+<div class="flex items-center space-x-4">
+<a href="{% url 'UD:settings' %}" class="flex items-center gap-2 text-gray-600 hover:text-primary">
+<i class="ri-settings-line"></i>
+<span>Settings</span>
+</a>
+<a href="{% url 'UD:about-us' %}" class="flex items-center gap-2 text-gray-600 hover:text-primary">
+<i class="ri-information-line"></i>
+<span>About Us</span>
+</a>
+</div>
+<div class="mt-4">
+<button id="mobile-publish-btn" class="w-full bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">
+<i class="ri-save-line mr-2"></i>
+Publish
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow">
+<!-- Hero Section -->
+<section id="hero-section" class="relative h-[500px] bg-gray-100 overflow-hidden">
+<div id="hero-bg" class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/6d3045aa5c188a5d96bfa3569dbc49b1.jpg');">
+<div class="absolute inset-0 bg-black bg-opacity-40"></div>
+</div>
+<div class="container mx-auto px-4 py-16 md:py-24 relative">
+<div class="max-w-xl">
+<h1 id="hero-title" contenteditable="true" class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">Spring Collection 2025</h1>
+<p id="hero-subtitle" contenteditable="true" class="text-lg text-gray-300 mb-8">Discover our latest arrivals with up to 40% off. Limited time offer on selected items.</p>
+</div>
+</div>
+<div class="absolute bottom-4 right-4 flex space-x-2">
+<button id="change-hero-bg" class="bg-white/80 backdrop-blur-sm text-gray-700 p-2 !rounded-button shadow-sm hover:bg-white transition-colors">
+<i class="ri-image-edit-line"></i>
+</button>
+<button id="reset-hero-bg" class="bg-white/80 backdrop-blur-sm text-gray-700 p-2 !rounded-button shadow-sm hover:bg-white transition-colors">
+<i class="ri-refresh-line"></i>
+</button>
+</div>
+</section>
+<!-- Trending Now Section -->
+<section id="trending-section" class="py-12 px-4">
+<div class="container mx-auto">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl md:text-3xl font-bold text-gray-900" contenteditable="true">Trending Now</h2>
+<button id="add-trending-product" class="text-primary hover:text-primary/80 transition-colors flex items-center">
+<i class="ri-add-linemr-1"></i>
+Add Product
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="trending-products">
+{% for product in trending_products %}
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+    <div class="relative">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+        <button class="absolute top-2 right-2 bg-white/80 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors">
+            <i class="ri-heart-line text-gray-700"></i>
+        </button>
+    </div>
+    <div class="p-4">
+        <h3 class="font-semibold text-gray-900 mb-1">{{ product.name }}</h3>
+        <p class="text-sm text-gray-500 mb-2">{{ product.description }}</p>
+        <div class="flex justify-between items-center">
+            <span class="font-bold text-gray-900">${{ product.price }}</span>
+            <button class="bg-primary text-white p-2 rounded-full hover:bg-primary/90 transition-colors">
+                <i class="ri-shopping-cart-line"></i>
+            </button>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+</div>
+</section>
+<!-- Flash Deals Section -->
+<section id="deals-section" class="py-12 px-4 bg-gray-50">
+<div class="container mx-auto">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl md:text-3xl font-bold text-gray-900" contenteditable="true">Flash Deals</h2>
+<button id="add-deal-product" class="text-primary hover:text-primary/80 transition-colors flex items-center">
+<i class="ri-add-line mr-1"></i>
+Add Product
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="deals-products">
+{% for product in flash_deals %}
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+    <div class="relative">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+        <button class="absolute top-2 right-2 bg-white/80 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors">
+            <i class="ri-heart-line text-gray-700"></i>
+        </button>
+    </div>
+    <div class="p-4">
+        <h3 class="font-semibold text-gray-900 mb-1">{{ product.name }}</h3>
+        <p class="text-sm text-gray-500 mb-2">{{ product.description }}</p>
+        <div class="flex justify-between items-center">
+            <span class="font-bold text-gray-900">${{ product.price }}</span>
+            <button class="bg-primary text-white p-2 rounded-full hover:bg-primary/90 transition-colors">
+                <i class="ri-shopping-cart-line"></i>
+            </button>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+</div>
+</section>
+<!-- New Sections Container -->
+<div id="new-sections-container"></div>
+<!-- Add Section Button -->
+<div class="py-8 px-4 text-center">
+<button id="add-new-section" class="bg-white border border-gray-300 text-gray-700 px-6 py-3 !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors inline-flex items-center">
+<i class="ri-add-line mr-2"></i>
+Add New Section
+</button>
+</div>
+<!-- Footer -->
+<footer class="bg-gray-800 text-white pt-12 pb-6">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-xl font-['Pacifico'] mb-4" contenteditable="true">Unique Design</h3>
+                <p class="text-gray-400 mb-4" contenteditable="true">Your one-stop destination for trendy fashion and accessories at affordable prices.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center" contenteditable="true">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center" contenteditable="true">
+                        <i class="ri-instagram-fill"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center" contenteditable="true">
+                        <i class="ri-twitter-fill"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center" contenteditable="true">
+                        <i class="ri-youtube-fill"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4" contenteditable="true">Shop</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">New Arrivals</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">Best Sellers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">Discounted</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">Clothing</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">Accessories</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4" contenteditable="true">Help</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">Contact Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">FAQs</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">Shipping Policy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">Returns & Exchanges</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors" contenteditable="true">Size Guide</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4" contenteditable="true">Newsletter</h4>
+                <p class="text-gray-400 mb-4" contenteditable="true">Subscribe to receive updates, access to exclusive deals, and more.</p>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm">2025 Unique Design. All rights reserved.</p>
+            <div class="flex space-x-4 mt-4 md:mt-0">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm" contenteditable="true">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm" contenteditable="true">Terms of Service</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm" contenteditable="true">Cookies Settings</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Theme Panel -->
+<div id="theme-panel" class="fixed right-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg !rounded-button rounded-r-none z-50 w-64 transition-transform duration-300 translate-x-full">
+<div class="p-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-semibold text-gray-800">Theme Settings</h3>
+<button id="close-theme-panel" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div class="space-y-4">
+<div>
+<label for="primary-color" class="block text-sm font-medium text-gray-700 mb-1">Primary Color</label>
+<div class="flex flex-col items-center space-y-4">
+<div class="relative">
+<div id="primary-color-circle" class="w-40 h-40 rounded-full cursor-pointer" style="background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red)"></div>
+<div id="primary-color-thumb" class="mt-2 w-4 h-4 border-2 border-white rounded-full shadow-lg" style="background: #4F46E5;"></div>
+</div>
+<input type="text" id="primary-color-hex" value="#4F46E5" class="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+</div>
+</div>
+<div class="pt-4 border-t border-gray-200">
+<button id="apply-theme" class="w-full bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">
+Apply Theme
+</button>
+<button id="reset-theme" class="w-full mt-2 bg-white border border-gray-300 text-gray-700 px-4 py-2 !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">
+Reset to Default
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Wishlist Panel -->
+<div id="wishlist-panel" class="fixed right-0 top-0 h-screen bg-white shadow-lg z-50 w-80 transform translate-x-full transition-transform duration-300">
+<div class="flex flex-col h-full">
+<div class="p-4 border-b border-gray-200 flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-800">Wishlist</h3>
+<button id="close-wishlist" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div id="wishlist-items" class="flex-grow overflow-y-auto p-4 space-y-4">
+<!-- Wishlist items will be dynamically added here -->
+</div>
+<div class="p-4 border-t border-gray-200">
+<button id="clear-wishlist" class="w-full bg-white border border-gray-300 text-gray-700 px-4 py-2 !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">
+Clear Wishlist
+</button>
+</div>
+</div>
+</div>
+<!-- Cart Modal -->
+<div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+<div class="bg-white !rounded-button max-w-2xl w-full max-h-[90vh] flex flex-col">
+<div class="p-4 border-b border-gray-200 flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-800">Shopping Cart</h3>
+<button id="close-cart" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div id="cart-items" class="flex-grow overflow-y-auto p-4 space-y-4">
+<!-- Cart items will be dynamically added here -->
+</div>
+<div class="p-4 border-t border-gray-200">
+<div class="flex justify-between items-center mb-4">
+<span class="text-gray-700">Total:</span>
+<span id="cart-total" class="text-lg font-semibold text-gray-900">$0.00</span>
+</div>
+<button id="checkout-btn" class="w-full bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">
+Place Order
+</button>
+</div>
+</div>
+</div>
+<!-- Add Product Modal -->
+<div id="add-product-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+<div class="bg-white !rounded-button max-w-xl w-full max-h-[90vh] flex flex-col">
+<div class="p-4 border-b border-gray-200 flex justify-between items-center">
+<h3 id="product-modal-title" class="text-lg font-semibold text-gray-800">Add New Product</h3>
+<button id="close-product-modal" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div class="flex-grow overflow-y-auto p-4">
+<form id="product-form" class="space-y-4">
+<input type="hidden" id="product-section" value="">
+<input type="hidden" id="product-id" value="">
+<div>
+<label for="product-image-upload" class="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
+<div class="flex items-center space-x-4">
+<div id="product-image-preview" class="w-24 h-24 border border-gray-300 !rounded-button flex items-center justify-center bg-gray-100">
+<i class="ri-image-line text-gray-400 text-2xl"></i>
+</div>
+<div class="flex-grow">
+<input type="file" id="product-image-upload" accept="image/*" class="hidden">
+<button type="button" id="product-image-btn" class="bg-white border border-gray-300 text-gray-700 px-4 py-2 !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">
+Choose Image
+</button>
+<p class="text-xs text-gray-500 mt-1">Recommended size: 500x500px</p>
+</div>
+</div>
+</div>
+<div>
+<label for="product-name" class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+<input type="text" id="product-name" required class="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label for="product-price" class="block text-sm font-medium text-gray-700 mb-1">Price (﷼)</label>
+<input type="number" id="product-price" min="0" step="0.01" required class="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 hide-number-arrows">
+</div>
+<div>
+<label for="product-discount" class="block text-sm font-medium text-gray-700 mb-1">Discount Price (﷼)</label>
+<input type="number" id="product-discount" min="0" step="0.01" class="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 hide-number-arrows">
+<div id="discount-error" class="text-red-500 text-sm mt-1 hidden">Discount price cannot be greater than or equal to the regular price</div>
+</div>
+</div>
+<div>
+<label for="product-rating" class="block text-sm font-medium text-gray-700 mb-1">Rating (1-5)</label>
+<input type="number" id="product-rating" min="1" max="5" step="0.1" required class="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 hide-number-arrows">
+</div>
+<div>
+<label for="product-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+<textarea id="product-description" rows="3" class="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"></textarea>
+</div>
+</form>
+</div>
+<div class="p-4 border-t border-gray-200 flex justify-end space-x-2">
+<button id="cancel-product" class="bg-white border border-gray-300 text-gray-700 px-4 py-2 !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">
+Cancel
+</button>
+<button id="save-product" class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">
+Save Product
+</button>
+</div>
+</div>
+</div>
+<!-- Add Section Modal -->
+<div id="add-section-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+<div class="bg-white !rounded-button max-w-md w-full">
+<div class="p-4 border-b border-gray-200 flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-800">Add New Section</h3>
+<button id="close-section-modal" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div class="p-4">
+<form id="section-form" class="space-y-4">
+<div>
+<label for="section-title" class="block text-sm font-medium text-gray-700 mb-1">Section Title</label>
+<input type="text" id="section-title" required class="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+</div>
+<div>
+<label for="section-bg" class="block text-sm font-medium text-gray-700 mb-1">Background Color</label>
+<select id="section-bg" class="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 pr-8">
+<option value="bg-white">White</option>
+<option value="bg-gray-50">Light Gray</option>
+<option value="bg-gray-100">Gray</option>
+<option value="bg-primary/5">Primary Light</option>
+<option value="bg-secondary/5">Secondary Light</option>
+</select>
+</div>
+</form>
+</div>
+<div class="p-4 border-t border-gray-200 flex justify-end space-x-2">
+<button id="cancel-section" class="bg-white border border-gray-300 text-gray-700 px-4 py-2 !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">
+Cancel
+</button>
+<button id="save-section" class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">
+Add Section
+</button>
+</div>
+</div>
+</div>
+<!-- Publish Modal -->
+<div id="publish-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-white !rounded-button max-w-xl w-full">
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+            <h3 class="text-lg font-semibold text-gray-800">Publish Your Website</h3>
+            <button id="close-publish-modal" class="text-gray-500 hover:text-gray-700">
+                <i class="ri-close-line"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <div class="mb-6">
+                <h4 class="text-xl font-['Pacifico'] text-primary mb-2">Unique Design</h4>
+                <p class="text-gray-600">Your website will be published under our platform</p>
+            </div>
+            <form id="publish-form" class="space-y-4">
+                <div>
+                    <label for="publish-website-name" class="block text-sm font-medium text-gray-700 mb-1">Your Website Name</label>
+                    <input type="text" id="publish-website-name" required class="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50" placeholder="My Website">
+                </div>
+                <div class="pt-4 border-t border-gray-200">
+                    <h5 class="text-sm font-medium text-gray-700 mb-2">Access Links</h5>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 !rounded-button">
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">Public Website</p>
+                                <p class="text-xs text-gray-500">Your live website</p>
+                            </div>
+                            <a href="#" id="public-link" class="text-primary hover:text-primary/80" target="_blank">
+                                <i class="ri-external-link-line"></i>
+                            </a>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 !rounded-button">
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">Admin Panel</p>
+                                <p class="text-xs text-gray-500">Manage your website</p>
+                            </div>
+                            <a href="#" id="admin-link" class="text-primary hover:text-primary/80" target="_blank">
+                                <i class="ri-external-link-line"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="p-4 border-t border-gray-200 flex justify-end space-x-2">
+            <button id="cancel-publish" class="bg-white border border-gray-300 text-gray-700 px-4 py-2 !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">
+                Cancel
+            </button>
+            <button id="confirm-publish" class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">
+                Publish
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Toast Container -->
+<div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col space-y-2"></div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing buttons');
+    
+    // Initialize Publish Button
+    const publishBtn = document.getElementById('publish-btn');
+    if (publishBtn) {
+        console.log('Publish button found');
+        publishBtn.addEventListener('click', function(e) {
+            console.log('Publish button clicked');
+            e.preventDefault();
+            
+            const modal = document.getElementById('publish-modal');
+            if (modal) {
+                console.log('Publish modal found');
+                modal.classList.remove('hidden');
+                
+                // Clear the input value to show placeholder
+                const websiteNameInput = document.getElementById('publish-website-name');
+                if (websiteNameInput) {
+                    websiteNameInput.value = '';
+                }
+                
+                // Set links
+                const baseUrl = window.location.origin;
+                const currentUserId = '{{ request.user.id }}';
+                const publicLink = `${baseUrl}/sites/${currentUserId}`;
+                const adminLink = `${baseUrl}/admin/${currentUserId}`;
+                
+                const publicLinkElement = document.getElementById('public-link');
+                const adminLinkElement = document.getElementById('admin-link');
+                
+                if (publicLinkElement) publicLinkElement.href = publicLink;
+                if (adminLinkElement) adminLinkElement.href = adminLink;
+            } else {
+                console.error('Publish modal not found');
+            }
+        });
+    } else {
+        console.error('Publish button not found');
+    }
+    
+    // Initialize Close Button
+    const closePublishBtn = document.getElementById('close-publish-modal');
+    if (closePublishBtn) {
+        console.log('Close button found');
+        closePublishBtn.addEventListener('click', function(e) {
+            console.log('Close button clicked');
+            e.preventDefault();
+            const modal = document.getElementById('publish-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                console.log('Modal hidden');
+            }
+        });
+    } else {
+        console.error('Close button not found');
+    }
+    
+    // Initialize Cancel Button
+    const cancelPublishBtn = document.getElementById('cancel-publish');
+    if (cancelPublishBtn) {
+        console.log('Cancel button found');
+        cancelPublishBtn.addEventListener('click', function(e) {
+            console.log('Cancel button clicked');
+            e.preventDefault();
+            const modal = document.getElementById('publish-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                console.log('Modal hidden');
+            }
+        });
+    } else {
+        console.error('Cancel button not found');
+    }
+    
+    // Initialize Confirm Button
+    const confirmPublishBtn = document.getElementById('confirm-publish');
+    if (confirmPublishBtn) {
+        console.log('Confirm button found');
+        confirmPublishBtn.addEventListener('click', function(e) {
+            console.log('Confirm button clicked');
+            e.preventDefault();
+            const websiteNameInput = document.getElementById('publish-website-name');
+            if (websiteNameInput) {
+                const websiteName = websiteNameInput.value;
+                const currentUserId = '{{ request.user.id }}';
+                
+                const settings = JSON.parse(localStorage.getItem(`settings_${currentUserId}`)) || {};
+                settings.name = websiteName;
+                localStorage.setItem(`settings_${currentUserId}`, JSON.stringify(settings));
+                
+                showToast('Website published successfully!');
+                
+                const modal = document.getElementById('publish-modal');
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+
+                // Redirect to publish page
+                window.location.href = "{% url 'UD:publish' %}";
+            }
+        });
+    } else {
+        console.error('Confirm button not found');
+    }
+
+    // Initialize data
+    const currentUserId = '{{ request.user.id }}';
+    let cart = JSON.parse(localStorage.getItem(`cart_${currentUserId}`)) || [];
+    let wishlist = JSON.parse(localStorage.getItem(`wishlist_${currentUserId}`)) || [];
+    let products = JSON.parse(localStorage.getItem(`products_${currentUserId}`)) || {
+        trending: generateSampleProducts(8, 'trending'),
+        deals: generateSampleProducts(8, 'deals', true)
+    };
+    let sections = JSON.parse(localStorage.getItem(`sections_${currentUserId}`)) || [];
+    
+    // Load settings with user-specific key
+    loadSettings(currentUserId);
+    
+    // Render products
+    renderProducts('trending', products.trending);
+    renderProducts('deals', products.deals);
+    renderSections();
+    updateCartCount();
+    updateWishlistCount();
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+    });
+    // Theme panel toggle
+    document.getElementById('theme-toggle-btn').addEventListener('click', function() {
+        const themePanel = document.getElementById('theme-panel');
+        themePanel.classList.toggle('translate-x-full');
+    });
+    document.getElementById('close-theme-panel').addEventListener('click', function() {
+        document.getElementById('theme-panel').classList.add('translate-x-full');
+    });
+    // Wishlist panel toggle
+    document.getElementById('wishlist-btn').addEventListener('click', function() {
+        const wishlistPanel = document.getElementById('wishlist-panel');
+        renderWishlistItems();
+        wishlistPanel.classList.toggle('translate-x-full');
+    });
+    document.getElementById('close-wishlist').addEventListener('click', function() {
+        document.getElementById('wishlist-panel').classList.add('translate-x-full');
+    });
+    // Cart modal toggle
+    document.getElementById('cart-btn').addEventListener('click', function() {
+        renderCartItems();
+        document.getElementById('cart-modal').classList.remove('hidden');
+    });
+    document.getElementById('close-cart').addEventListener('click', function() {
+        document.getElementById('cart-modal').classList.add('hidden');
+    });
+    // Clear wishlist
+    document.getElementById('clear-wishlist').addEventListener('click', function() {
+        wishlist = [];
+        localStorage.setItem(`wishlist_${currentUserId}`, JSON.stringify(wishlist));
+        renderWishlistItems();
+        updateWishlistCount();
+        showToast('Wishlist cleared');
+    });
+    // Checkout
+    document.getElementById('checkout-btn').addEventListener('click', function() {
+        showToast('Order placed successfully!');
+        cart = [];
+        localStorage.setItem(`cart_${currentUserId}`, JSON.stringify(cart));
+        renderCartItems();
+        updateCartCount();
+        document.getElementById('cart-modal').classList.add('hidden');
+    });
+    // Add product buttons
+    document.getElementById('add-trending-product').addEventListener('click', function() {
+        openProductModal('trending');
+    });
+    document.getElementById('add-deal-product').addEventListener('click', function() {
+        openProductModal('deals');
+    });
+    // Product modal actions
+    document.getElementById('product-image-btn').addEventListener('click', function() {
+        document.getElementById('product-image-upload').click();
+    });
+    document.getElementById('product-image-upload').addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('product-image-preview');
+                preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover !rounded-button">`;
+                preview.dataset.image = e.target.result;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+    document.getElementById('close-product-modal').addEventListener('click', function() {
+        document.getElementById('add-product-modal').classList.add('hidden');
+    });
+    document.getElementById('cancel-product').addEventListener('click', function() {
+        document.getElementById('add-product-modal').classList.add('hidden');
+    });
+    document.getElementById('save-product').addEventListener('click', function() {
+        saveProduct();
+    });
+    // Add section button
+    document.getElementById('add-new-section').addEventListener('click', function() {
+        document.getElementById('add-section-modal').classList.remove('hidden');
+    });
+    // Section modal actions
+    document.getElementById('close-section-modal').addEventListener('click', function() {
+        document.getElementById('add-section-modal').classList.add('hidden');
+    });
+    document.getElementById('cancel-section').addEventListener('click', function() {
+        document.getElementById('add-section-modal').classList.add('hidden');
+    });
+    document.getElementById('save-section').addEventListener('click', function() {
+        saveSection();
+    });
+    // Hero background change
+    document.getElementById('change-hero-bg').addEventListener('click', function() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('hero-bg').style.backgroundImage = `url('${e.target.result}')`;
+                    localStorage.setItem(`hero-bg_${currentUserId}`, e.target.result);
+                    showToast('Hero background updated');
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        };
+        input.click();
+    });
+    document.getElementById('reset-hero-bg').addEventListener('click', function() {
+        const defaultImage = 'https://public.readdy.ai/ai/img_res/6d3045aa5c188a5d96bfa3569dbc49b1.jpg';
+        document.getElementById('hero-bg').style.backgroundImage = `url('${defaultImage}')`;
+        localStorage.removeItem(`hero-bg_${currentUserId}`);
+        showToast('Hero background reset to default');
+    });
+    // Theme settings - Color Circle
+    function initColorCircle(circleId, thumbId, hexInputId) {
+        const circle = document.getElementById(circleId);
+        const thumb = document.getElementById(thumbId);
+        const hexInput = document.getElementById(hexInputId);
+        let isDragging = false;
+        function updateColor(e) {
+            const rect = circle.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            let x = e.clientX - centerX;
+            let y = e.clientY - centerY;
+            // Calculate angle and distance from center
+            const angle = Math.atan2(y, x);
+            const distance = Math.min(Math.sqrt(x * x + y * y), rect.width / 2);
+            // Update thumb position
+            x = Math.cos(angle) * distance;
+            y = Math.sin(angle) * distance;
+            thumb.style.left = `${x + rect.width / 2}px`;
+            thumb.style.top = `${y + rect.height / 2}px`;
+            // Convert angle to hue (0-360)
+            let hue = ((angle + Math.PI) / (2 * Math.PI)) * 360;
+            // Calculate saturation based on distance from center (0-100)
+            const saturation = (distance / (rect.width / 2)) * 100;
+            // Convert HSL to RGB then to Hex
+            const color = hslToHex(hue, saturation, 50);
+            thumb.style.backgroundColor = color;
+            hexInput.value = color;
+        }
+        circle.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            updateColor(e);
+            e.preventDefault(); // Prevent text selection while dragging
+        });
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                updateColor(e);
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+        // Handle direct hex input
+        hexInput.addEventListener('input', (e) => {
+            const color = e.target.value;
+            if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
+                thumb.style.backgroundColor = color;
+                // Convert hex to HSL to update thumb position
+                const rgb = hexToRgb(color);
+                const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+                const angle = (hsl.h / 360) * 2 * Math.PI - Math.PI;
+                const distance = (hsl.s / 100) * (circle.offsetWidth / 2);
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                thumb.style.left = `${x + circle.offsetWidth / 2}px`;
+                thumb.style.top = `${y + circle.offsetWidth / 2}px`;
+            }
+        });
+    }
+    function hslToHex(h, s, l) {
+        l /= 100;
+        const a = s * Math.min(l, 1 - l) / 100;
+        const f = n => {
+            const k = (n + h / 30) % 12;
+            const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+            return Math.round(255 * color).toString(16).padStart(2, '0');
+        };
+        return `#${f(0)}${f(8)}${f(4)}`;
+    }
+    // Initialize color circles
+    initColorCircle('primary-color-circle', 'primary-color-thumb', 'primary-color-hex');
+    document.getElementById('apply-theme').addEventListener('click', function() {
+        const primaryColor = document.getElementById('primary-color-hex').value;
+        const style = document.createElement('style');
+        style.textContent = `
+        :root {
+            --color-primary: ${primaryColor};
+        }
+        .bg-primary { background-color: ${primaryColor} !important; }
+        .text-primary { color: ${primaryColor} !important; }
+        .border-primary { border-color: ${primaryColor} !important; }
+        .ring-primary { --tw-ring-color: ${primaryColor} !important; }
+        `;
+        // Remove existing custom theme if any
+        const existingStyle = document.getElementById('custom-theme');
+        if (existingStyle) {
+            existingStyle.remove();
+        }
+        style.id = 'custom-theme';
+        document.head.appendChild(style);
+        // Save to localStorage
+        localStorage.setItem(`theme_${currentUserId}`, JSON.stringify({
+            primary: primaryColor
+        }));
+        showToast('Theme applied successfully');
+        document.getElementById('theme-panel').classList.add('translate-x-full');
+    });
+    document.getElementById('reset-theme').addEventListener('click', function() {
+        // Reset the color input and hex value
+        document.getElementById('primary-color-hex').value = '#4F46E5';
+        // Create and apply the default style
+        const style = document.createElement('style');
+        style.textContent = `
+        :root {
+            --color-primary: #4F46E5;
+        }
+        .bg-primary { background-color: #4F46E5 !important; }
+        .text-primary { color: #4F46E5 !important; }
+        .border-primary { border-color: #4F46E5 !important; }
+        .ring-primary { --tw-ring-color: #4F46E5 !important; }
+        `;
+        style.id = 'custom-theme';
+        // Remove any existing custom theme
+        const existingStyle = document.getElementById('custom-theme');
+        if (existingStyle) {
+            existingStyle.remove();
+        }
+        // Apply the new style
+        document.head.appendChild(style);
+        // Update the color circle thumb
+        const thumb = document.getElementById('primary-color-thumb');
+        thumb.style.background = '#4F46E5';
+        // Remove saved theme from localStorage
+        localStorage.removeItem(`theme_${currentUserId}`);
+        // Show success message
+        showToast('Theme reset to default');
+        // Close the theme panel
+        document.getElementById('theme-panel').classList.add('translate-x-full');
+    });
+    // Site settings
+    document.getElementById('website-name').addEventListener('input', function(e) {
+        const name = e.target.value;
+        document.title = name;
+    });
+    document.getElementById('save-settings').addEventListener('click', function() {
+        const settings = {
+            name: document.getElementById('website-name').value,
+            fontSize: document.getElementById('font-size').value,
+            fontFamily: document.getElementById('font-family').value,
+            domain: document.getElementById('custom-domain').value
+        };
+        localStorage.setItem(`settings_${currentUserId}`, JSON.stringify(settings));
+        showToast('Settings saved successfully');
+    });
+    // Mobile publish button
+    const mobilePublishBtn = document.getElementById('mobile-publish-btn');
+    if (mobilePublishBtn) {
+        mobilePublishBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (publishBtn) publishBtn.click();
+        });
+    }
+
+    // Load hero background if saved
+    const savedHeroBg = localStorage.getItem(`hero-bg_${currentUserId}`);
+    if (savedHeroBg) {
+        document.getElementById('hero-bg').style.backgroundImage = `url('${savedHeroBg}')`;
+    }
+    // Load theme if saved
+    const savedTheme = JSON.parse(localStorage.getItem(`theme_${currentUserId}`));
+    if (savedTheme) {
+        document.getElementById('primary-color').value = savedTheme.primary;
+        document.getElementById('primary-color-hex').value = savedTheme.primary;
+        const style = document.createElement('style');
+        style.textContent = `
+        :root {
+            --color-primary: ${savedTheme.primary};
+        }
+        .bg-primary { background-color: ${savedTheme.primary} !important; }
+        .text-primary { color: ${savedTheme.primary} !important; }
+        .border-primary { border-color: ${savedTheme.primary} !important; }
+        .ring-primary { --tw-ring-color: ${savedTheme.primary} !important; }
+        `;
+        style.id = 'custom-theme';
+        document.head.appendChild(style);
+    }
+    // Functions
+    function generateSampleProducts(count, section, hasDiscount = false) {
+        const products = [];
+        const categories = ['Clothing', 'Shoes', 'Accessories', 'Electronics', 'Home Decor'];
+        const adjectives = ['Premium', 'Luxury', 'Casual', 'Elegant', 'Modern', 'Classic', 'Stylish', 'Trendy', 'Vintage', 'Designer'];
+        const items = ['T-Shirt', 'Jeans', 'Dress', 'Jacket', 'Sneakers', 'Watch', 'Bag', 'Sunglasses', 'Headphones', 'Smartphone'];
+        for (let i = 0; i < count; i++) {
+            const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const item = items[Math.floor(Math.random() * items.length)];
+            const category = categories[Math.floor(Math.random() * categories.length)];
+            const price = (Math.random() * 100 + 20).toFixed(2);
+            const discountPrice = hasDiscount ? (price * (1 - Math.random() * 0.4)).toFixed(2) : null;
+            const rating = (Math.random() * 2 + 3).toFixed(1);
+            const reviews = Math.floor(Math.random() * 500) + 10;
+            products.push({
+                id: `${section}-${Date.now()}-${i}`,
+                name: `${adj} ${item}`,
+                price: price,
+                discountPrice: discountPrice,
+                rating: rating,
+                reviews: reviews,
+                image: `https://readdy.ai/api/search-image?query=professional%2520product%2520photography%2520of%2520a%2520$%7Badj.toLowerCase%28%29%7D%2520$%7Bitem.toLowerCase%28%29%7D%2520on%2520clean%2520white%2520background%252C%2520minimalist%2520style%252C%2520high%2520quality%2520retail%2520product%2520image%252C%2520studio%2520lighting%252C%2520commercial%2520photography&width=500&height=500&seq=${section}${i}&orientation=squarish`,
+                category: category,
+                description: `High-quality ${adj.toLowerCase()} ${item.toLowerCase()} perfect for any occasion. Made with premium materials for comfort and durability.`
+            });
+        }
+        return products;
+    }
+    function renderProducts(section, productsList) {
+        const container = document.getElementById(`${section}-products`);
+        container.innerHTML = '';
+        if (productsList.length === 0) {
+            container.innerHTML = `
+            <div class="col-span-full text-center py-8">
+                <p class="text-gray-500">No products found. Add some products to get started.</p>
+            </div>
+            `;
+            return;
+        }
+        productsList.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'bg-white !rounded-button shadow-sm overflow-hidden transition-shadow hover:shadow-md';
+            productCard.dataset.id = product.id;
+            const isInWishlist = wishlist.some(item => item.id === product.id);
+            productCard.innerHTML = `
+            <div class="relative">
+                <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover object-top">
+                <button class="wishlist-btn absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm !rounded-full shadow-sm hover:bg-white transition-colors ${isInWishlist ? 'text-red-500' : 'text-gray-400'}" data-id="${product.id}">
+                    <i class="ri-heart-${isInWishlist ? 'fill' : 'line'}"></i>
+                </button>
+                ${product.discountPrice ? `<span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 !rounded-button">-${Math.round((1 - product.discountPrice / product.price) * 100)}%</span>` : ''}
+            </div>
+            <div class="p-4">
+                <h3 class="text-gray-900 font-medium mb-1">${product.name}</h3>
+                <div class="flex items-center mb-2">
+                    <div class="flex text-amber-400 mr-1">
+                        ${generateStarRating(product.rating)}
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        ${product.discountPrice ?
+                        `<span class="text-gray-900 font-semibold">${product.discountPrice}﷼</span>
+                        <span class="text-gray-500 text-sm line-through ml-1">${product.price}﷼</span>` :
+                        `<span class="text-gray-900 font-semibold">${product.price}﷼</span>`
+                        }
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="edit-product-btn w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-button hover:bg-gray-200 transition-colors" data-id="${product.id}" data-section="${section}">
+                            <i class="ri-edit-line"></i>
+                        </button>
+                        <button class="delete-product-btn w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-button hover:bg-gray-200 transition-colors text-gray-500" data-id="${product.id}" data-section="${section}">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                        <button class="add-to-cart-btn w-8 h-8 flex items-center justify-center bg-primary text-white !rounded-button hover:bg-opacity-90 transition-colors" data-id="${product.id}">
+                            <i class="ri-shopping-cart-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            `;
+            container.appendChild(productCard);
+            // Add event listeners
+            const wishlistBtn = productCard.querySelector('.wishlist-btn');
+            wishlistBtn.addEventListener('click', function() {
+                toggleWishlist(product);
+            });
+            const cartBtn = productCard.querySelector('.add-to-cart-btn');
+            cartBtn.addEventListener('click', function() {
+                addToCart(product);
+            });
+            const editBtn = productCard.querySelector('.edit-product-btn');
+            editBtn.addEventListener('click', function() {
+                editProduct(product, section);
+            });
+            const deleteBtn = productCard.querySelector('.delete-product-btn');
+            deleteBtn.addEventListener('click', function() {
+                deleteProduct(product.id, section);
+            });
+        });
+    }
+    function generateStarRating(rating) {
+        let stars = '';
+        const fullStars = Math.floor(rating);
+        const halfStar = rating % 1 >= 0.5;
+        const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+        for (let i = 0; i < fullStars; i++) {
+            stars += '<i class="ri-star-fill"></i>';
+        }
+        if (halfStar) {
+            stars += '<i class="ri-star-half-fill"></i>';
+        }
+        for (let i = 0; i < emptyStars; i++) {
+            stars += '<i class="ri-star-line"></i>';
+        }
+        return stars;
+    }
+    function toggleWishlist(product) {
+        const index = wishlist.findIndex(item => item.id === product.id);
+        if (index === -1) {
+            wishlist.push(product);
+            showToast(`${product.name} added to wishlist`);
+        } else {
+            wishlist.splice(index, 1);
+            showToast(`${product.name} removed from wishlist`);
+        }
+        localStorage.setItem(`wishlist_${currentUserId}`, JSON.stringify(wishlist));
+        updateWishlistCount();
+        // Update wishlist button
+        const wishlistBtns = document.querySelectorAll(`.wishlist-btn[data-id="${product.id}"]`);
+        wishlistBtns.forEach(btn => {
+            if (index === -1) {
+                btn.classList.add('text-red-500');
+                btn.classList.remove('text-gray-400');
+                btn.innerHTML = '<i class="ri-heart-fill"></i>';
+            } else {
+                btn.classList.remove('text-red-500');
+                btn.classList.add('text-gray-400');
+                btn.innerHTML = '<i class="ri-heart-line"></i>';
+            }
+        });
+        // Update wishlist panel if open
+        if (!document.getElementById('wishlist-panel').classList.contains('translate-x-full')) {
+            renderWishlistItems();
+        }
+    }
+    function addToCart(product) {
+        const existingItem = cart.find(item => item.id === product.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                ...product,
+                quantity: 1
+            });
+        }
+        localStorage.setItem(`cart_${currentUserId}`, JSON.stringify(cart));
+        updateCartCount();
+        showToast(`${product.name} added to cart`);
+    }
+    function updateCartCount() {
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cart-count').textContent = count;
+    }
+    function updateWishlistCount() {
+        document.getElementById('wishlist-count').textContent = wishlist.length;
+    }
+    function renderWishlistItems() {
+        const container = document.getElementById('wishlist-items');
+        container.innerHTML = '';
+        if (wishlist.length === 0) {
+            container.innerHTML = `
+            <div class="text-center py-8">
+                <p class="text-gray-500">Your wishlist is empty</p>
+            </div>
+            `;
+            return;
+        }
+        wishlist.forEach(product => {
+            const item = document.createElement('div');
+            item.className = 'flex items-center space-x-3 p-2 hover:bg-gray-50 !rounded-button';
+            item.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover object-top !rounded-button">
+            <div class="flex-grow min-w-0">
+                <h4 class="text-gray-900 font-medium truncate">${product.name}</h4>
+                <div class="flex items-center text-sm">
+                    ${product.discountPrice ?
+                    `<span class="text-gray-900">${product.discountPrice}﷼</span>
+                    <span class="text-gray-500 line-through ml-1">${product.price}﷼</span>` :
+                    `<span class="text-gray-900">${product.price}﷼</span>`
+                    }
+                </div>
+            </div>
+            <div class="flex space-x-1">
+                <button class="add-to-cart-from-wishlist w-8 h-8 flex items-center justify-center bg-primary text-white !rounded-button hover:bg-opacity-90 transition-colors" data-id="${product.id}">
+                    <i class="ri-shopping-cart-line"></i>
+                </button>
+                <button class="remove-from-wishlist w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-500 !rounded-button hover:bg-gray-200 transition-colors" data-id="${product.id}">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
+            </div>
+            `;
+            container.appendChild(item);
+            // Add event listeners
+            const addToCartBtn = item.querySelector('.add-to-cart-from-wishlist');
+            addToCartBtn.addEventListener('click', function() {
+                addToCart(product);
+            });
+            const removeBtn = item.querySelector('.remove-from-wishlist');
+            removeBtn.addEventListener('click', function() {
+                toggleWishlist(product);
+            });
+        });
+    }
+    function renderCartItems() {
+        const container = document.getElementById('cart-items');
+        container.innerHTML = '';
+        if (cart.length === 0) {
+            container.innerHTML = `
+            <div class="text-center py-8">
+                <p class="text-gray-500">Your cart is empty</p>
+            </div>
+            `;
+            document.getElementById('cart-total').textContent = '0.00﷼';
+            return;
+        }
+        let total = 0;
+        cart.forEach(product => {
+            const price = product.discountPrice || product.price;
+            const itemTotal = price * product.quantity;
+            total += itemTotal;
+            const item = document.createElement('div');
+            item.className = 'flex items-center space-x-3 p-2 hover:bg-gray-50 !rounded-button';
+            item.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover object-top !rounded-button">
+            <div class="flex-grow min-w-0">
+                <h4 class="text-gray-900 font-medium truncate">${product.name}</h4>
+                <div class="flex items-center text-sm">
+                    ${product.discountPrice ?
+                    `<span class="text-gray-900">${product.discountPrice}﷼</span>
+                    <span class="text-gray-500 line-through ml-1">${product.price}﷼</span>` :
+                    `<span class="text-gray-900">${product.price}﷼</span>`
+                    }
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="decrement-quantity w-6 h-6 flex items-center justify-center bg-gray-100 !rounded-button hover:bg-gray-200 transition-colors" data-id="${product.id}">
+                    <i class="ri-subtract-line"></i>
+                </button>
+                <span class="w-6 text-center">${product.quantity}</span>
+                <button class="increment-quantity w-6 h-6 flex items-center justify-center bg-gray-100 !rounded-button hover:bg-gray-200 transition-colors" data-id="${product.id}">
+                    <i class="ri-add-line"></i>
+                </button>
+                <button class="remove-from-cart w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-500 !rounded-button hover:bg-gray-200 transition-colors ml-2" data-id="${product.id}">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
+            </div>
+            `;
+            container.appendChild(item);
+            // Add event listeners
+            const decrementBtn = item.querySelector('.decrement-quantity');
+            decrementBtn.addEventListener('click', function() {
+                updateCartItemQuantity(product.id, -1);
+            });
+            const incrementBtn = item.querySelector('.increment-quantity');
+            incrementBtn.addEventListener('click', function() {
+                updateCartItemQuantity(product.id, 1);
+            });
+            const removeBtn = item.querySelector('.remove-from-cart');
+            removeBtn.addEventListener('click', function() {
+                removeFromCart(product.id);
+            });
+        });
+        document.getElementById('cart-total').textContent = `${total.toFixed(2)}﷼`;
+    }
+    function updateCartItemQuantity(productId, change) {
+        const index = cart.findIndex(item => item.id === productId);
+        if (index !== -1) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem(`cart_${currentUserId}`, JSON.stringify(cart));
+            renderCartItems();
+            updateCartCount();
+        }
+    }
+    function removeFromCart(productId) {
+        const index = cart.findIndex(item => item.id === productId);
+        if (index !== -1) {
+            const product = cart[index];
+            cart.splice(index, 1);
+            localStorage.setItem(`cart_${currentUserId}`, JSON.stringify(cart));
+            renderCartItems();
+            updateCartCount();
+            showToast(`${product.name} removed from cart`);
+        }
+    }
+    function openProductModal(section, product = null) {
+        const modal = document.getElementById('add-product-modal');
+        const form = document.getElementById('product-form');
+        const preview = document.getElementById('product-image-preview');
+        const modalTitle = document.getElementById('product-modal-title');
+        // Reset form
+        form.reset();
+        preview.innerHTML = '<i class="ri-image-line text-gray-400 text-2xl"></i>';
+        preview.dataset.image = '';
+        // Set section
+        document.getElementById('product-section').value = section;
+        if (product) {
+            // Edit mode
+            modalTitle.textContent = 'Edit Product';
+            document.getElementById('product-id').value = product.id;
+            document.getElementById('product-name').value = product.name;
+            document.getElementById('product-price').value = product.price;
+            document.getElementById('product-discount').value = product.discountPrice || '';
+            document.getElementById('product-rating').value = product.rating;
+            document.getElementById('product-description').value = product.description || '';
+            // Set image preview
+            preview.innerHTML = `<img src="${product.image}" class="w-full h-full object-cover !rounded-button">`;
+            preview.dataset.image = product.image;
+        } else {
+            // Add mode
+            modalTitle.textContent = 'Add New Product';
+            document.getElementById('product-id').value = '';
+        }
+        modal.classList.remove('hidden');
+    }
+    function saveProduct() {
+        const currentUserId = '{{ request.user.id }}';
+        const form = document.getElementById('product-form');
+        const section = document.getElementById('product-section').value;
+        const productId = document.getElementById('product-id').value;
+        const preview = document.getElementById('product-image-preview');
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const price = parseFloat(document.getElementById('product-price').value);
+        const discountPrice = parseFloat(document.getElementById('product-discount').value);
+
+        if (discountPrice && discountPrice >= price) {
+            document.getElementById('discount-error').classList.remove('hidden');
+            return;
+        }
+
+        const productData = {
+            name: document.getElementById('product-name').value,
+            price: price,
+            discountPrice: discountPrice || null,
+            rating: document.getElementById('product-rating').value,
+            description: document.getElementById('product-description').value,
+            image: preview.dataset.image || `https://readdy.ai/api/search-image?query=professional%2520product%2520photography%2520of%2520a%2520$%7Bdocument.getElementById%28product-name%29.value.toLowerCase%28%29%7D%2520on%2520clean%2520white%2520background%252C%2520minimalist%2520style%252C%2520high%2520quality%2520retail%2520product%2520image%252C%2520studio%2520lighting%252C%2520commercial%2520photography&width=500&height=500&seq=${section}${Date.now()}&orientation=squarish`
+        };
+
+        if (productId) {
+            const index = products[section].findIndex(p => p.id === productId);
+            if (index !== -1) {
+                products[section][index] = {
+                    ...products[section][index],
+                    ...productData
+                };
+                showToast('Product updated successfully');
+            }
+        } else {
+            const newProduct = {
+                id: `${section}-${Date.now()}`,
+                ...productData
+            };
+            products[section].push(newProduct);
+            showToast('Product added successfully');
+        }
+
+        localStorage.setItem(`products_${currentUserId}`, JSON.stringify(products));
+        renderProducts(section, products[section]);
+        document.getElementById('add-product-modal').classList.add('hidden');
+    }
+    function editProduct(product, section) {
+        openProductModal(section, product);
+    }
+    function saveSection() {
+        const currentUserId = '{{ request.user.id }}';
+        const title = document.getElementById('section-title').value;
+        const bg = document.getElementById('section-bg').value;
+        
+        if (!title) {
+            showToast('Please enter a section title');
+            return;
+        }
+
+        const sectionId = `section-${Date.now()}`;
+        const newSection = {
+            id: sectionId,
+            title: title,
+            bg: bg
+        };
+
+        // Initialize sections array if it doesn't exist
+        if (!sections) {
+            sections = [];
+        }
+        
+        // Add new section
+        sections.push(newSection);
+        
+        // Initialize products array for the new section if it doesn't exist
+        if (!products[sectionId]) {
+            products[sectionId] = [];
+        }
+
+        // Save to localStorage with user-specific keys
+        localStorage.setItem(`sections_${currentUserId}`, JSON.stringify(sections));
+        localStorage.setItem(`products_${currentUserId}`, JSON.stringify(products));
+
+        // Render the new section
+        renderSections();
+        
+        // Show success message
+        showToast('Section added successfully');
+        
+        // Close modal and reset form
+        document.getElementById('add-section-modal').classList.add('hidden');
+        document.getElementById('section-form').reset();
+    }
+    function renderSections() {
+        const container = document.getElementById('new-sections-container');
+        container.innerHTML = '';
+        sections.forEach(section => {
+            const sectionEl = document.createElement('section');
+            sectionEl.id = section.id;
+            sectionEl.className = `py-12 px-4 ${section.bg}`;
+            sectionEl.innerHTML = `
+            <div class="container mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900" contenteditable="true">${section.title}</h2>
+                    <div class="flex items-center space-x-2">
+                        <button class="add-section-product text-primary hover:text-primary/80 transition-colors flex items-center" data-section="${section.id}">
+                            <i class="ri-add-line mr-1"></i>
+                            Add Product
+                        </button>
+                        <button class="delete-section text-gray-500 hover:text-gray-700 transition-colors" data-section="${section.id}">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="${section.id}-products">
+                    <!-- Products will be dynamically added here -->
+                </div>
+            </div>
+            `;
+            container.appendChild(sectionEl);
+            // Add event listeners
+            const addProductBtn = sectionEl.querySelector('.add-section-product');
+            addProductBtn.addEventListener('click', function() {
+                openProductModal(section.id);
+            });
+            const deleteBtn = sectionEl.querySelector('.delete-section');
+            deleteBtn.addEventListener('click', function() {
+                deleteSection(section.id);
+            });
+            // Render products
+            renderProducts(section.id, products[section.id] || []);
+        });
+    }
+    function deleteProduct(productId, section) {
+        const index = products[section].findIndex(p => p.id === productId);
+        if (index !== -1) {
+            const productName = products[section][index].name;
+            products[section].splice(index, 1);
+            localStorage.setItem(`products_${currentUserId}`, JSON.stringify(products));
+            renderProducts(section, products[section]);
+            showToast(`${productName} deleted successfully`);
+            // Also remove from cart and wishlist if present
+            const cartIndex = cart.findIndex(item => item.id === productId);
+            if (cartIndex !== -1) {
+                cart.splice(cartIndex, 1);
+                localStorage.setItem(`cart_${currentUserId}`, JSON.stringify(cart));
+                updateCartCount();
+            }
+            const wishlistIndex = wishlist.findIndex(item => item.id === productId);
+            if (wishlistIndex !== -1) {
+                wishlist.splice(wishlistIndex, 1);
+                localStorage.setItem(`wishlist_${currentUserId}`, JSON.stringify(wishlist));
+                updateWishlistCount();
+            }
+        }
+    }
+    function deleteSection(sectionId) {
+        const index = sections.findIndex(s => s.id === sectionId);
+        if (index !== -1) {
+            sections.splice(index, 1);
+            delete products[sectionId];
+            localStorage.setItem(`sections_${currentUserId}`, JSON.stringify(sections));
+            localStorage.setItem(`products_${currentUserId}`, JSON.stringify(products));
+            renderSections();
+            showToast('Section deleted successfully');
+        }
+    }
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'bg-gray-800 text-white px-4 py-2 !rounded-button shadow-lg toast';
+        toast.textContent = message;
+        container.appendChild(toast);
+        // Remove toast after animation
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
+    function loadSettings(userId) {
+        const settings = JSON.parse(localStorage.getItem(`settings_${userId}`));
+        if (settings) {
+            document.getElementById('website-name').value = settings.name || 'ShopEase';
+            document.getElementById('font-size').value = settings.fontSize || 'medium';
+            document.getElementById('font-family').value = settings.fontFamily || 'Inter';
+            document.getElementById('custom-domain').value = settings.domain || '';
+            // Apply settings
+            document.title = settings.name || 'ShopEase';
+            applyFontSize(settings.fontSize || 'medium');
+            applyFontFamily(settings.fontFamily || 'Inter');
+        }
+    }
+    function applyFontSize(size) {
+        let rootSize;
+        switch (size) {
+            case 'small':
+                rootSize = '14px';
+                break;
+            case 'large':
+                rootSize = '18px';
+                break;
+            case 'medium':
+            default:
+                rootSize = '16px';
+                break;
+        }
+        document.documentElement.style.fontSize = rootSize;
+    }
+    function applyFontFamily(family) {
+        if (family === 'Inter') return; // Default
+        // Load Google Font if not already loaded
+        if (!document.getElementById(`font-${family}`)) {
+            const link = document.createElement('link');
+            link.id = `font-${family}`;
+            link.rel = 'stylesheet';
+            link.href = `https://fonts.googleapis.com/css2?family=${family}:wght@300;400;500;600;700&display=swap`;
+            document.head.appendChild(link);
+        }
+        document.body.style.fontFamily = `'${family}', sans-serif`;
+    }
+    function testPublish() {
+        alert('Publish button clicked!');
+        const modal = document.getElementById('publish-modal');
+        if (modal) {
+            modal.classList.remove('hidden');
+        }
+    }
+});
+</script>
+</body>
+</html>

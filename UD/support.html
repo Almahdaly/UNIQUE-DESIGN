@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    {% load static %}
+    <style>
+        /* General settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #6f42c1;
+            font-style: italic;
+        }
+
+        .navbar .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #6f42c1;
+            font-weight: 500;
+        }
+
+        .navbar .nav-links .get-started {
+            background-color: #fd7e14;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        /* Main header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #6f42c1;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        /* Main content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Contact support */
+        .contact-support {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-support h2 {
+            font-size: 1.5em;
+            color: #6f42c1;
+            margin-bottom: 20px;
+        }
+
+        .contact-support label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .contact-support input,
+        .contact-support textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .contact-support textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .contact-support button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        .contact-support button:hover {
+            background-color: #5a32a3;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .search-bar input {
+                width: 80%;
+            }
+
+            .ai-chat input {
+                width: 70%;
+            }
+
+            .ai-chat button {
+                width: 25%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-white shadow-sm py-4 px-6">
+        <div class="container mx-auto flex items-center">
+        <a href="{% url 'UD:settings' %}" class="flex items-center justify-center w-10 h-10 text-gray-600 hover:bg-gray-100 rounded-full cursor-pointer">
+        <i class="ri-arrow-left-line ri-lg"></i>
+        </a>
+        <h1 class="text-xl font-semibold text-gray-800 ml-4">Support</h1>
+        </div>
+    </header>
+
+    <!-- Main header -->
+    <header class="header">
+        <h1>How can we help you?</h1>
+    </header>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- Contact support -->
+        <div class="contact-support">
+            <h2>Contact Support</h2>
+            <form method="POST" action="{% url 'UD:send_support_message' %}">
+                {% csrf_token %}
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="issue">Describe your issue</label>
+                <textarea id="issue" name="issue" required></textarea>
+
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Messages Display -->
+        {% if messages %}
+        <div class="fixed top-4 right-4 z-50 space-y-2">
+            {% for message in messages %}
+            <div class="p-4 rounded-lg shadow-lg {% if message.tags == 'success' %}bg-green-500{% else %}bg-red-500{% endif %} text-white flex items-center justify-between min-w-[300px]">
+                <span>{{ message }}</span>
+                <button class="close-message">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <script>
+        // Auto-hide messages after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const messages = document.querySelectorAll('.close-message');
+            messages.forEach(message => {
+                setTimeout(() => {
+                    message.closest('div').remove();
+                }, 5000);
+                
+                message.addEventListener('click', function() {
+                    this.closest('div').remove();
+                });
+            });
+        });
+        </script>
+    </div>
+    <br>
+    <br>
+    <br>
+    <footer class="bg-gray-100 shadow-sm z-50 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+        <a href="{% url 'UD:home' %}" class="font-['Pacifico'] text-2xl text-primary">Unique Design</a>
+        <p class="mt-4 text-gray-600">Create your dream online store with our easy-to-use platform.</p>
+        </div>
+        <div>
+        <h4 class="font-semibold text-gray-900 mb-4">Company</h4>
+        <ul class="space-y-2">
+        <li><a href="{% url 'UD:home' %}" class="text-gray-600 hover:text-primary">Home</a></li>
+        <li><a href="{% url 'UD:about-us' %}" class="text-gray-600 hover:text-primary">About</a></li>
+        <li><a href="{% url 'UD:support' %}" class="text-gray-600 hover:text-primary">Contact</a></li>
+        </ul>
+        </div>
+        <div>
+        <h4 class="font-semibold text-gray-900 mb-4">Service</h4>
+        <ul class="space-y-2">
+        <li><a href="{% url 'UD:settings' %}" class="text-gray-600 hover:text-primary">Settings</a></li>
+        <li><a href="{% url 'UD:privacy_policy' %}" class="text-gray-600 hover:text-primary">Privacy Policy</a></li>
+        <li><a href="{% url 'UD:terms_of_service' %}" class="text-gray-600 hover:text-primary">Terms of Service</a></li>
+        </ul>
+        </div>
+        <div>
+        <h4 class="font-semibold text-gray-900 mb-4">Support</h4>
+        <ul class="space-y-2">
+        <li><a href="{% url 'UD:support' %}" class="text-gray-600 hover:text-primary">Support</a></li>
+        <li><a href="{% url 'UD:profile_info' %}" class="text-gray-600 hover:text-primary">Profile info</a></li>
+        </ul>
+        </div>
+        </div>
+        <div class="border-t border-gray-200 mt-12 pt-8 flex justify-between items-center">
+        <p class="text-gray-600">&copy; 2025 Unique Design. All rights reserved.</p>
+        <div class="flex space-x-6">
+        <a href="#" class="text-gray-600 hover:text-primary">
+        <i class="ri-facebook-fill"></i>
+        </a>
+        <a href="#" class="text-gray-600 hover:text-primary">
+        <i class="ri-twitter-fill"></i>
+        </a>
+        <a href="#" class="text-gray-600 hover:text-primary">
+        <i class="ri-instagram-fill"></i>
+        </a>
+        </div>
+        </div>
+        </div>
+        </footer>
+</body>
+</html>

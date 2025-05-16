@@ -1,0 +1,491 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unique Design - Create Your Online Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#3C166B',
+secondary: '#DF3562',
+accent: '#FCBA7E',
+cta: '#FD8402'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:root {
+--primary-color: #3C166B;
+--primary-hover-color: #3C166BE6;
+--primary-focus-color: #3C166B40;
+}
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.nav-link.active { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); }
+.hero-gradient {
+background: linear-gradient(135deg, rgba(60,22,107,0.05) 0%, rgba(223,53,98,0.05) 100%);
+}
+body {
+line-height: 1.6;
+letter-spacing: 0.01em;
+}
+.shadow-soft {
+box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+}
+.transition-all {
+transition: all 0.3s ease;
+}
+[class*="text-primary"] { transition: color 0.2s ease; }
+[class*="bg-primary"] { transition: background-color 0.2s ease; }
+[class*="border-primary"] { transition: border-color 0.2s ease; }
+[class*="ring-primary"] { transition: box-shadow 0.2s ease; }
+</style>
+</head>
+<body class="bg-white min-h-screen">
+<nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-soft z-50">
+<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+<div class="flex justify-between h-16">
+<div class="flex items-center">
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">Unique Design</a>
+</div>
+<div class="hidden md:flex items-center space-x-10">
+<div class="flex items-center space-x-2">
+<a href="{% url 'UD:signup' %}" class="px-4 py-2 text-sm font-medium text-primary hover:bg-primary/5 !rounded-button">Sign In</a>
+<a href="{% url 'UD:signup' %}" class="px-4 py-2 text-sm font-medium text-white bg-cta hover:bg-cta/90 !rounded-button">Get Started</a>
+</div>
+</div>
+<div class="md:hidden flex items-center">
+<button class="text-gray-500 hover:text-primary">
+<i class="ri-menu-line text-2xl"></i>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-16">
+<section class="hero-gradient">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div>
+<h1 class="text-4xl md:text-5xl font-bold text-primary mb-6">Create Your Dream Online Store in Minutes</h1>
+<p class="text-lg text-gray-600 mb-8">Build a professional e-commerce website with our intuitive drag-and-drop builder. No coding required. Start selling online today!</p>
+<div class="flex space-x-4">
+<a href="{% url 'UD:signup' %}" class="px-8 py-4 text-white bg-cta hover:bg-cta/90 font-medium !rounded-button transition-all">Get Started</a>
+</div>
+</div>
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/e62817082b66c47cf9a4e3853aeb23e4.jpg" alt="Platform Preview" class="rounded-lg shadow-xl">
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-white">
+<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-primary mb-4">Why Choose Unique Design?</h2>
+<p class="text-lg text-gray-600">Everything you need to create a successful online store</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<div class="p-8 bg-white rounded-lg shadow-soft hover:shadow-lg transition-all">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-paint-brush-line text-xl text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-primary mb-3">Beautiful Themes</h3>
+<p class="text-gray-600">Choose from our collection of professionally designed themes that look great on any device.</p>
+</div>
+<div class="p-8 bg-white rounded-lg shadow-soft hover:shadow-lg transition-all">
+<div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-tools-line text-xl text-secondary"></i>
+</div>
+<h3 class="text-xl font-semibold text-primary mb-3">Easy Customization</h3>
+<p class="text-gray-600">Customize every aspect of your store with our intuitive drag-and-drop builder.</p>
+</div>
+<div class="p-8 bg-white rounded-lg shadow-soft hover:shadow-lg transition-all">
+<div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-rocket-line text-xl text-accent"></i>
+</div>
+<h3 class="text-xl font-semibold text-primary mb-3">Instant Publishing</h3>
+<p class="text-gray-600">Get your store online instantly with our fast and reliable hosting.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-gray-50/50">
+<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-primary mb-4">How It Works</h2>
+<p class="text-lg text-gray-600">Get your online store up and running in three simple steps</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<div class="text-center">
+<div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="text-2xl font-bold">1</span>
+</div>
+<h3 class="text-xl font-semibold text-primary mb-3">Choose Your Theme</h3>
+<p class="text-gray-600">Select from our collection of professional themes designed for your success.</p>
+</div>
+<div class="text-center">
+<div class="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="text-2xl font-bold">2</span>
+</div>
+<h3 class="text-xl font-semibold text-primary mb-3">Customize Your Store</h3>
+<p class="text-gray-600">Add your products, customize colors, and make it your own.</p>
+</div>
+<div class="text-center">
+<div class="w-16 h-16 bg-cta text-white rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="text-2xl font-bold">3</span>
+</div>
+<h3 class="text-xl font-semibold text-primary mb-3">Launch & Sell</h3>
+<p class="text-gray-600">Publish your store and start selling to customers worldwide.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-gray-50/50">
+<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-primary mb-4">What Our Customers Say</h2>
+<p class="text-lg text-gray-600">Join thousands of satisfied store owners</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<div class="p-6 bg-white rounded-lg shadow-lg">
+<div class="flex items-center mb-4">
+<img src="https://public.readdy.ai/ai/img_res/0aa2c8a8718b389e362cc60adff638f0.jpg" alt="Sarah Johnson" class="w-12 h-12 rounded-full object-cover">
+<div class="ml-4">
+<h4 class="font-semibold">Sarah Johnson</h4>
+<p class="text-sm text-gray-500">Fashion Boutique Owner</p>
+</div>
+</div>
+<p class="text-gray-600">"Unique Design made it incredibly easy to launch my online boutique. The themes are beautiful and the customer support is outstanding."</p>
+</div>
+<div class="p-6 bg-white rounded-lg shadow-lg">
+<div class="flex items-center mb-4">
+<img src="https://public.readdy.ai/ai/img_res/f2ddc0b9eadb1a1e596e6635a3abedb0.jpg" alt="Michael Chen" class="w-12 h-12 rounded-full object-cover">
+<div class="ml-4">
+<h4 class="font-semibold">Michael Chen</h4>
+<p class="text-sm text-gray-500">Tech Accessories Store</p>
+</div>
+</div>
+<p class="text-gray-600">"The platform's ease of use and professional features helped me grow my business by 300% in just six months."</p>
+</div>
+<div class="p-6 bg-white rounded-lg shadow-lg">
+<div class="flex items-center mb-4">
+<img src="https://public.readdy.ai/ai/img_res/70e222b23b7bd039cce82bad840acbac.jpg" alt="Emma Rodriguez" class="w-12 h-12 rounded-full object-cover">
+<div class="ml-4">
+<h4 class="font-semibold">Emma Rodriguez</h4>
+<p class="text-sm text-gray-500">Handmade Jewelry</p>
+</div>
+</div>
+<p class="text-gray-600">"I love how I can easily manage my inventory and orders. The platform has everything I need to run my jewelry business."</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-primary text-white">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<h2 class="text-3xl font-bold mb-6">Ready to Start Your Online Store?</h2>
+<p class="text-xl mb-8">Join thousands of successful entrepreneurs who trust Unique Design</p>
+<a href="{% url 'UD:signup' %}" class="px-8 py-4 text-white bg-cta hover:bg-cta/90 font-medium !rounded-button transition-all">Get Started</a>
+</div>
+</section>
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const navLinks = document.querySelectorAll('.nav-link');
+navLinks.forEach(link => {
+link.addEventListener('click', function() {
+navLinks.forEach(l => l.classList.remove('active'));
+this.classList.add('active');
+});
+});
+});
+</script>
+<script>
+let currentTheme = {
+name: 'modern',
+color: '#3C166B',
+font: 'sans',
+buttonStyle: 'rounded'
+};
+function changeFeaturedImage() {
+const imageUrl = prompt("Enter new image URL or leave empty for a random product image");
+if(imageUrl === null) return;
+const featuredImg = document.getElementById('featured-img');
+if(imageUrl.trim() === '') {
+const randomProduct = ['watch', 'camera', 'headphones', 'smartphone'][Math.floor(Math.random() * 4)];
+featuredImg.src = `https://readdy.ai/api/search-image?query=minimalist product photography of ${randomProduct} on white background with soft shadows&width=400&height=300&seq=8&orientation=landscape`;
+} else {
+featuredImg.src = imageUrl;
+}
+}
+function changeProductImage(button) {
+const imageUrl = prompt("Enter new image URL or leave empty for a random product image");
+if(imageUrl === null) return;
+const productCard = button.closest('.product-card');
+const img = productCard.querySelector('img');
+if(imageUrl.trim() === '') {
+const randomProduct = ['watch', 'camera', 'headphones', 'smartphone'][Math.floor(Math.random() * 4)];
+img.src = `https://readdy.ai/api/search-image?query=minimalist product photography of ${randomProduct} on white background&width=200&height=200&seq=${Math.floor(Math.random() * 100)}&orientation=squarish`;
+} else {
+img.src = imageUrl;
+}
+}
+// Add input event listeners to prevent invalid price inputs
+document.addEventListener('DOMContentLoaded', function() {
+const priceInputs = document.querySelectorAll('input[type="number"]');
+priceInputs.forEach(input => {
+input.addEventListener('input', function() {
+if(this.value < 0) this.value = 0;
+this.value = parseFloat(this.value).toFixed(2);
+});
+});
+});
+function selectTheme(themeName) {
+const themeOptions = document.querySelectorAll('.theme-option');
+themeOptions.forEach(option => {
+option.classList.remove('bg-primary/10');
+if(option.textContent.toLowerCase().includes(themeName)) {
+option.classList.add('bg-primary/10');
+}
+});
+currentTheme.name = themeName;
+updatePreview();
+}
+function updateColorTheme(value) {
+// Validate hex color
+const isValidHex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+if (!value.startsWith('#')) value = '#' + value;
+if (!isValidHex.test(value)) {
+return;
+}
+// Update both color picker and text input
+document.getElementById('primaryColor').value = value;
+document.getElementById('primaryColorText').value = value;
+// Update theme
+currentTheme.color = value;
+// Update preview elements
+const preview = document.getElementById('theme-preview');
+const root = document.documentElement;
+root.style.setProperty('--primary-color', value);
+root.style.setProperty('--primary-hover-color', `${value}E6`); // 90% opacity
+root.style.setProperty('--primary-focus-color', `${value}40`); // 25% opacity
+const elementsToUpdate = preview.querySelectorAll('[class*="text-primary"], [class*="bg-primary"], [class*="border-primary"], [class*="ring-primary"]');
+elementsToUpdate.forEach(element => {
+// Remove inline styles
+element.removeAttribute('style');
+// Re-apply dynamic styles based on classes
+if (element.classList.contains('text-primary')) {
+element.style.color = 'var(--primary-color)';
+}
+if (element.classList.contains('bg-primary')) {
+element.style.backgroundColor = 'var(--primary-color)';
+}
+if (element.classList.contains('border-primary')) {
+element.style.borderColor = 'var(--primary-color)';
+}
+if (element.classList.contains('hover:bg-primary')) {
+element.addEventListener('mouseenter', () => {
+element.style.backgroundColor = 'var(--primary-hover-color)';
+});
+element.addEventListener('mouseleave', () => {
+element.style.backgroundColor = '';
+});
+}
+if (element.classList.contains('hover:text-primary')) {
+element.addEventListener('mouseenter', () => {
+element.style.color = 'var(--primary-hover-color)';
+});
+element.addEventListener('mouseleave', () => {
+element.style.color = '';
+});
+}
+if (element.classList.contains('focus:ring-primary')) {
+element.addEventListener('focus', () => {
+element.style.boxShadow = '0 0 0 2px var(--primary-focus-color)';
+});
+element.addEventListener('blur', () => {
+element.style.boxShadow = '';
+});
+}
+});
+// Dispatch custom event for theme update
+const themeUpdateEvent = new CustomEvent('themeUpdate', { detail: { color: value } });
+document.dispatchEvent(themeUpdateEvent);
+}
+function updateTheme(property, value) {
+if (property === 'color') {
+updateColorTheme(value);
+} else {
+currentTheme[property] = value;
+updatePreview();
+}
+}
+function updatePreview() {
+const preview = document.getElementById('theme-preview');
+// Update colors
+preview.style.setProperty('--primary-color', currentTheme.color);
+// Update font
+preview.style.fontFamily = currentTheme.font;
+// Update button style
+const buttons = preview.querySelectorAll('button');
+buttons.forEach(button => {
+button.className = button.className.replace(/rounded\S*/g, '');
+button.classList.add(`rounded-${currentTheme.buttonStyle}`);
+});
+}
+function saveTheme() {
+const notification = document.createElement('div');
+notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
+notification.textContent = 'Theme saved successfully!';
+document.body.appendChild(notification);
+setTimeout(() => {
+notification.remove();
+}, 3000);
+}
+function resetTheme() {
+currentTheme = {
+name: 'modern',
+color: '#3C166B',
+font: 'sans',
+buttonStyle: 'rounded'
+};
+document.getElementById('primaryColor').value = '#3C166B';
+updatePreview();
+const notification = document.createElement('div');
+notification.className = 'fixed bottom-4 right-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg';
+notification.textContent = 'Theme reset to default!';
+document.body.appendChild(notification);
+setTimeout(() => {
+notification.remove();
+}, 3000);
+}
+function addNewProduct() {
+const productGrid = document.getElementById('product-grid');
+const newProduct = document.createElement('div');
+newProduct.className = 'product-card p-4 border rounded-lg';
+const randomSeq = Math.floor(Math.random() * 1000);
+const randomProduct = ['watch', 'camera', 'headphones', 'smartphone', 'tablet', 'laptop'][Math.floor(Math.random() * 6)];
+newProduct.innerHTML = `
+<div class="relative group">
+<img src="https://readdy.ai/api/search-image?query=minimalist product photography of ${randomProduct} on white background&width=200&height=200&seq=${randomSeq}&orientation=squarish" alt="Product" class="w-full h-40 object-cover rounded-lg mb-4">
+<div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button onclick="changeProductImage(this)" class="px-4 py-2 bg-white text-gray-800 rounded-button">Change Image</button>
+</div>
+</div>
+<input type="text" value="New Product" class="font-medium mb-2 w-full bg-transparent border-b border-transparent hover:border-gray-200 focus:border-primary focus:outline-none px-1">
+<div class="flex items-center">
+<span class="text-gray-600">$</span>
+<input type="number" value="99.99" class="text-gray-600 w-20 bg-transparent border-b border-transparent hover:border-gray-200 focus:border-primary focus:outline-none px-1">
+</div>
+`;
+productGrid.appendChild(newProduct);
+const notification = document.createElement('div');
+notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
+notification.textContent = 'New product added successfully!';
+document.body.appendChild(notification);
+setTimeout(() => {
+notification.remove();
+}, 3000);
+}
+// Initialize theme preview
+document.addEventListener('DOMContentLoaded', () => {
+selectTheme('modern');
+});
+</script>
+<footer class="bg-gray-100 shadow-sm z-50 flex items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div>
+    <a href="#" class="font-['Pacifico'] text-2xl text-primary">Unique Design</a>
+    <p class="mt-4 text-gray-600">Create your dream online store with our easy-to-use platform.</p>
+    </div>
+    <div>
+    <h4 class="font-semibold text-gray-900 mb-4">Company</h4>
+    <ul class="space-y-2">
+    <li><a href="#" class="text-gray-600 hover:text-primary">Home</a></li>
+    <li><a href="#" class="text-gray-600 hover:text-primary">About</a></li>
+    <li><a href="#" class="text-gray-600 hover:text-primary">Contact</a></li>
+    </ul>
+    </div>
+    <div>
+    <h4 class="font-semibold text-gray-900 mb-4">Service</h4>
+    <ul class="space-y-2">
+    <li><a href="#" class="text-gray-600 hover:text-primary">Settings</a></li>
+    <li><a href="#" class="text-gray-600 hover:text-primary">Privacy Policy</a></li>
+    <li><a href="#" class="text-gray-600 hover:text-primary">Terms of Service</a></li>
+    </ul>
+    </div>
+    <div>
+    <h4 class="font-semibold text-gray-900 mb-4">Support</h4>
+    <ul class="space-y-2">
+    <li><a href="#" class="text-gray-600 hover:text-primary">Support</a></li>
+    <li><a href="#" class="text-gray-600 hover:text-primary">Profile info</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="border-t border-gray-200 mt-12 pt-8 flex justify-between items-center">
+    <p class="text-gray-600">&copy; 2025 Unique Design. All rights reserved.</p>
+    <div class="flex space-x-6">
+    <a href="#" class="text-gray-600 hover:text-primary">
+    <i class="ri-facebook-fill"></i>
+    </a>
+    <a href="#" class="text-gray-600 hover:text-primary">
+    <i class="ri-twitter-fill"></i>
+    </a>
+    <a href="#" class="text-gray-600 hover:text-primary">
+    <i class="ri-instagram-fill"></i>
+    </a>
+    </div>
+    </div>
+    </div>
+    </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const navLinks = document.querySelectorAll('.nav-link');
+const pages = {
+'index.html': document.querySelector('main'),
+'register.html': document.querySelector('#register-page'),
+};
+function showPage(pageId) {
+Object.values(pages).forEach(page => {
+if (page) page.style.display = 'none';
+});
+if (pages[pageId]) {
+pages[pageId].style.display = 'block';
+}
+}
+navLinks.forEach(link => {
+link.addEventListener('click', function(e) {
+e.preventDefault();
+const pageId = this.getAttribute('href');
+showPage(pageId);
+navLinks.forEach(l => l.classList.remove('active'));
+this.classList.add('active');
+});
+});
+});
+</script>
+</body>
+</html>
