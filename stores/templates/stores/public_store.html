@@ -77,6 +77,15 @@
                 </a>
                 <a href="{% url 'products:product_detail' product.pk %}" class="font-semibold block mt-1 hover:underline">{{ product.name }}</a>
                 <div class="text-gray-500">{{ product.price }} ريال</div>
+                {% if user.is_authenticated and user.user_type == 'customer' and product.is_available and product.quantity > 0 %}
+                <form method="post" action="{% url 'cart:add_to_cart' product.id %}" class="mt-2 flex gap-2 items-center justify-center">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" min="1" max="{{ product.quantity }}" value="1" class="w-16 px-2 py-1 border rounded text-center" required>
+                    <button type="submit" class="bg-primary text-white px-4 py-1 rounded hover:bg-primary/90 transition text-sm">أضف إلى السلة</button>
+                </form>
+                {% elif not user.is_authenticated %}
+                <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="mt-2 inline-block bg-primary text-white px-4 py-1 rounded hover:bg-primary/90 transition text-sm">سجّل الدخول للشراء</a>
+                {% endif %}
               </div>
             {% endfor %}
           </div>

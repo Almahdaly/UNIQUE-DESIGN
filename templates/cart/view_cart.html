@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto py-12">
+    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-2xl font-bold text-primary mb-6">سلة المشتريات</h1>
+        {% if items %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="overflow-x-auto mb-6">
+                <table class="min-w-full text-center">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="py-2 px-4">الصورة</th>
+                            <th class="py-2 px-4">المنتج</th>
+                            <th class="py-2 px-4">السعر</th>
+                            <th class="py-2 px-4">الكمية</th>
+                            <th class="py-2 px-4">المجموع الفرعي</th>
+                            <th class="py-2 px-4">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="py-2 px-4">
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-16 h-16 object-cover rounded border mx-auto">
+                                {% else %}
+                                    <img src="{% static 'UD/images/default-product.png' %}" alt="بدون صورة" class="w-16 h-16 object-cover rounded border mx-auto">
+                                {% endif %}
+                            </td>
+                            <td class="py-2 px-4 font-bold text-gray-800">{{ item.product.name }}</td>
+                            <td class="py-2 px-4 text-primary font-semibold">{{ item.product.price }} <span class="text-xs text-gray-500">ريال</span></td>
+                            <td class="py-2 px-4">
+                                <form method="post" action="{% url 'cart:update_cart_item' item.id %}" class="flex items-center gap-2 justify-center">
+                                    {% csrf_token %}
+                                    <input type="number" name="quantity" min="1" max="{{ item.product.quantity }}" value="{{ item.quantity }}" class="w-16 px-2 py-1 border rounded text-center" required>
+                                    <button type="submit" class="bg-primary text-white px-3 py-1 rounded hover:bg-primary/90 transition text-sm">تحديث</button>
+                                </form>
+                            </td>
+                            <td class="py-2 px-4 font-semibold">{{ item.subtotal }} <span class="text-xs text-gray-500">ريال</span></td>
+                            <td class="py-2 px-4">
+                                <form method="post" action="{% url 'cart:remove_cart_item' item.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="text-red-600 hover:underline">حذف</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        <div class="flex justify-between items-center mt-6">
+            <div class="text-xl font-bold">المجموع الكلي: <span class="text-green-600">{{ total }} ريال</span></div>
+            <form method="post" action="#">
+                {% csrf_token %}
+                <button type="submit" class="bg-primary text-white px-6 py-2 rounded hover:bg-primary/90 transition">تأكيد الطلب</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="text-gray-500 text-center py-8">سلتك فارغة.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

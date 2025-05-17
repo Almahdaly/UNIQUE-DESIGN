@@ -18,6 +18,15 @@
             <a href="/accounts/profile/" class="bg-secondary text-primary px-8 py-3 rounded-button text-lg font-semibold hover:bg-secondary/90 transition">ملفي الشخصي</a>
             <a href="/accounts/logout/" class="bg-gray-200 text-primary px-8 py-3 rounded-button text-lg font-semibold hover:bg-gray-300 transition">تسجيل الخروج</a>
         </div>
+        {% if user.user_type == 'customer' %}
+        <div class="mt-8 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg p-4 max-w-xl mx-auto text-center">
+            لشراء المنتجات، يرجى الحصول على رابط المتجر من البائع والدخول إليه مباشرة.
+        </div>
+        <form method="get" action="" onsubmit="event.preventDefault(); var val = this.elements['store_slug'].value.trim(); var slug = val; var idx = val.lastIndexOf('/store/'); if(idx !== -1){ var rest = val.slice(idx + 7); slug = rest.replace(/^\/+/, '').split(/[\/?#\s]/)[0]; } if(slug){ window.location.href='/store/' + encodeURIComponent(slug) + '/'; }" class="mt-4 flex flex-col md:flex-row gap-2 max-w-xl mx-auto justify-center items-center">
+            <input type="text" name="store_slug" placeholder="أدخل اسم المتجر أو رابط المتجر هنا..." class="form-input px-4 py-2 rounded-lg border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary w-full text-center" required>
+            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition">اذهب</button>
+        </form>
+        {% endif %}
     {% else %}
         <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4 font-['Pacifico']">منصتك لبيع التصاميم والمنتجات المميزة</h1>
         <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl mx-auto">

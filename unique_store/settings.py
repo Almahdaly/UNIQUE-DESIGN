@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'stores',
     'products',
     'orders',
+    'cart',
     # ... تطبيقات أخرى ...
     'widget_tweaks',
 ]

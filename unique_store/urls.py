@@ -31,6 +31,7 @@ urlpatterns = [
     path('orders/', include('orders.urls', namespace='orders')),
     path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
     path('privacy/', TemplateView.as_view(template_name='privacy.html'), name='privacy'),
+    path('cart/', include('cart.urls', namespace='cart')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
