@@ -6,6 +6,7 @@ class RegistrationForm(forms.ModelForm):
     password1 = forms.CharField(label='كلمة المرور', widget=forms.PasswordInput)
     password2 = forms.CharField(label='تأكيد كلمة المرور', widget=forms.PasswordInput)
     user_type = forms.ChoiceField(choices=[(k, v) for k, v in USER_TYPE_CHOICES if k != 'admin'], label='نوع المستخدم')
+    agree = forms.BooleanField(label='أوافق على <a href="/privacy/" target="_blank" class="text-primary underline">الشروط وسياسة الخصوصية</a>', required=True)
 
     class Meta:
         model = CustomUser
@@ -23,6 +24,8 @@ class RegistrationForm(forms.ModelForm):
         password2 = cleaned_data.get('password2')
         if password1 and password2 and password1 != password2:
             self.add_error('password2', 'كلمتا المرور غير متطابقتين.')
+        if not cleaned_data.get('agree'):
+            self.add_error('agree', 'يجب الموافقة على الشروط وسياسة الخصوصية لإنشاء الحساب.')
         return cleaned_data
 
     def save(self, commit=True):

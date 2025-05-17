@@ -19,6 +19,7 @@ from django.urls import path, include
 from unique_store.views import home, seller_dashboard
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,8 @@ urlpatterns = [
     path('products/', include('products.urls', namespace='products')),
     path('dashboard/', seller_dashboard, name='seller_dashboard'),
     path('orders/', include('orders.urls', namespace='orders')),
+    path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
+    path('privacy/', TemplateView.as_view(template_name='privacy.html'), name='privacy'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

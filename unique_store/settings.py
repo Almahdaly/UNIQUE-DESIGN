@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'stores',
     'products',
     'orders',
+    # ... تطبيقات أخرى ...
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

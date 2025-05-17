@@ -7,19 +7,19 @@
         <h1 class="text-2xl font-bold text-primary mb-6">طلبات المتجر</h1>
         <form method="get" class="mb-6 flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded">
             <span class="font-semibold">تصفية:</span>
-            <input type="text" name="product" value="{{ request.GET.product }}" placeholder="اسم المنتج" class="form-input px-2 py-1 rounded border text-sm" />
-            <input type="text" name="customer" value="{{ request.GET.customer }}" placeholder="اسم العميل أو البريد" class="form-input px-2 py-1 rounded border text-sm" />
-            <input type="date" name="date_from" value="{{ request.GET.date_from }}" class="form-input px-2 py-1 rounded border text-sm" />
-            <input type="date" name="date_to" value="{{ request.GET.date_to }}" class="form-input px-2 py-1 rounded border text-sm" />
-            <select name="status" class="form-input px-2 py-1 rounded border text-sm">
+            <input type="text" name="product" value="{{ request.GET.product }}" placeholder="اسم المنتج" class="form-input px-2 py-1 rounded border text-sm h-10" />
+            <input type="text" name="customer" value="{{ request.GET.customer }}" placeholder="اسم العميل أو البريد" class="form-input px-2 py-1 rounded border text-sm h-10" />
+            <input type="text" name="date_from" value="{{ request.GET.date_from }}" lang="ar" class="form-input px-2 py-1 rounded border text-sm h-10" placeholder="من تاريخ" autocomplete="off" />
+            <input type="text" name="date_to" value="{{ request.GET.date_to }}" lang="ar" class="form-input px-2 py-1 rounded border text-sm h-10" placeholder="إلى تاريخ" autocomplete="off" />
+            <select name="status" class="form-input px-2 py-1 rounded border text-sm h-10">
                 <option value="">كل الحالات</option>
                 {% for value, label in status_choices %}
                     <option value="{{ value }}" {% if current_status == value %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
             </select>
-            <button type="submit" class="bg-primary text-white px-4 py-1 rounded hover:bg-primary/90 transition text-sm">بحث</button>
+            <button type="submit" class="bg-primary text-white px-4 py-1 rounded hover:bg-primary/90 transition text-sm h-10">بحث</button>
             {% if request.GET %}
-            <a href="?" class="text-gray-500 underline text-sm ml-2">إعادة تعيين</a>
+            <a href="?" class="text-gray-500 underline text-sm ml-2 h-10 flex items-center">إعادة تعيين</a>
             {% endif %}
         </form>
         {% if orders %}
@@ -104,7 +104,20 @@
 {% endblock %}
 
 {% block extra_js %}
+<!-- flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- flatpickr Arabic locale -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ar.js"></script>
+
 <script>
+// تفعيل flatpickr على حقول التاريخ مع دعم العربية
+flatpickr("input[name='date_from'], input[name='date_to']", {
+    dateFormat: "Y-m-d",
+    locale: "ar",
+    disableMobile: true // لإجبار استخدام flatpickr حتى على الجوال
+});
 // تأكيد قبل تغيير حالة الطلب
 const forms = document.querySelectorAll('form[action=""]');
 forms.forEach(form => {

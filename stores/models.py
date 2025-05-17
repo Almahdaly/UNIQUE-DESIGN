@@ -7,6 +7,9 @@ class Store(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='store_images/', blank=True, null=True)
+    logo = models.ImageField(upload_to='store_logos/', blank=True, null=True)
+    cover = models.ImageField(upload_to='store_covers/', blank=True, null=True)
+    primary_color = models.CharField(max_length=7, blank=True, default='#2563eb')  # لون افتراضي أزرق
     slug = models.SlugField(unique=True, blank=True, max_length=120)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)

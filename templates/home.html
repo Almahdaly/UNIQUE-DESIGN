@@ -22,8 +22,8 @@
             أنشئ متجرك الخاص وشارك منتجاتك مع من تريد فقط. خصوصية، سهولة، وواجهة عصرية تدعم اللغة العربية بالكامل.
         </p>
         <div class="flex flex-col md:flex-row gap-4 justify-center">
-            <a href="/accounts/signup/" class="bg-primary text-white px-8 py-3 rounded-button text-lg font-semibold hover:bg-primary/90 transition">ابدأ الآن مجانًا</a>
-            <a href="/about-us/" class="bg-secondary text-primary px-8 py-3 rounded-button text-lg font-semibold hover:bg-secondary/90 transition">تعرف على المنصة</a>
+            <a href="/accounts/register/" class="bg-primary text-white px-8 py-3 rounded-button text-lg font-semibold hover:bg-primary/90 transition">ابدأ الآن مجانًا</a>
+            <a href="/about/" class="bg-secondary text-primary px-8 py-3 rounded-button text-lg font-semibold hover:bg-secondary/90 transition">تعرف على المنصة</a>
         </div>
     {% endif %}
 </section>
@@ -53,10 +53,12 @@
 </section>
 
 <!-- Call to Action -->
+{% if not user.is_authenticated %}
 <section class="py-16 bg-gradient-to-l from-secondary/10 to-primary/10 flex flex-col items-center">
     <h2 class="text-2xl font-bold text-primary mb-4">جاهز لبدء متجرك؟</h2>
-    <a href="/accounts/signup/" class="bg-primary text-white px-10 py-4 rounded-button text-lg font-semibold hover:bg-primary/90 transition">سجّل الآن وابدأ البيع</a>
+    <a href="/accounts/register/" class="bg-primary text-white px-10 py-4 rounded-button text-lg font-semibold hover:bg-primary/90 transition">سجّل الآن وابدأ البيع</a>
 </section>
+{% endif %}
 
 <!-- Footer handled by base.html -->
 {% endblock %} 

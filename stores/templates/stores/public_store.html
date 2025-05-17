@@ -6,60 +6,63 @@
 {% block content %}
 <div class="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-gray-50 to-gray-100">
   <div class="w-full max-w-3xl bg-white rounded-xl shadow-lg overflow-hidden">
-    <div class="flex flex-col md:flex-row">
-      <!-- صورة المتجر -->
-      <div class="w-full md:w-1/3 bg-gray-50 p-8 flex flex-col items-center">
-        <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-md mb-4">
-          <img src="{% if store.image %}{{ store.image.url }}{% else %}{% static 'UD/images/default-profile.png' %}{% endif %}"
-               alt="Store Image"
-               class="w-full h-full object-cover object-top">
+    <!-- صورة الغلاف -->
+    <div class="w-full h-32 md:h-40 relative">
+      <img src="{% if store.cover %}{{ store.cover.url }}{% else %}{% static 'UD/images/default-cover.png' %}{% endif %}"
+           alt="Store Cover"
+           class="w-full h-full object-cover object-center">
+      <!-- الشعار فوق الغلاف -->
+      <div class="absolute left-1/2 -bottom-12 transform -translate-x-1/2 z-10">
+        <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
+          <img src="{% if store.logo %}{{ store.logo.url }}{% else %}{% static 'UD/images/default-profile.png' %}{% endif %}"
+               alt="Store Logo"
+               class="w-full h-full object-cover object-center">
         </div>
-        <h2 class="text-2xl font-semibold text-gray-800">{{ store.name }}</h2>
       </div>
-      <!-- بيانات المتجر -->
-      <div class="w-full md:w-2/3 p-8 flex flex-col justify-center">
-        <p class="text-gray-600 mb-4">{{ store.description }}</p>
-        <div class="mt-6">
-          <h3 class="text-lg font-bold text-primary mb-2">منتجات المتجر</h3>
-          <form method="get" class="mb-6 flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded">
-            <input type="text" name="q" value="{{ filters.q }}" placeholder="ابحث باسم المنتج..." class="form-input px-2 py-1 rounded border text-sm" />
-            <select name="category" class="form-input px-2 py-1 rounded border text-sm">
-              <option value="">كل التصنيفات</option>
-              {% for cat in categories %}
-                {% if cat %}<option value="{{ cat }}" {% if filters.category == cat %}selected{% endif %}>{{ cat }}</option>{% endif %}
-              {% endfor %}
-            </select>
-            <input type="number" name="price_min" value="{{ filters.price_min }}" placeholder="السعر من" class="form-input px-2 py-1 rounded border text-sm w-24" min="0" />
-            <input type="number" name="price_max" value="{{ filters.price_max }}" placeholder="السعر إلى" class="form-input px-2 py-1 rounded border text-sm w-24" min="0" />
-            <label class="flex items-center gap-1 text-sm">
-              <input type="checkbox" name="available" value="1" {% if filters.available == '1' %}checked{% endif %} class="form-checkbox">
-              متوفر فقط
-            </label>
-            <button type="submit" class="bg-primary text-white px-4 py-1 rounded hover:bg-primary/90 transition text-sm">بحث</button>
-            {% if filters.q or filters.category or filters.price_min or filters.price_max or filters.available %}
-            <a href="?" class="text-gray-500 underline text-sm ml-2">إعادة تعيين</a>
-            {% endif %}
-          </form>
-          {% if products %}
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {% for product in products %}
-                <div class="bg-gray-50 rounded-lg p-4 shadow flex flex-col items-center">
-                  <a href="{% url 'products:product_detail' product.pk %}">
-                    {% if product.image %}
-                      <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-24 h-24 object-cover rounded mb-2">
-                    {% else %}
-                      <img src="{% static 'UD/images/default-product.png' %}" alt="بدون صورة" class="w-24 h-24 object-cover rounded mb-2">
-                    {% endif %}
-                  </a>
-                  <a href="{% url 'products:product_detail' product.pk %}" class="font-semibold block mt-1 hover:underline">{{ product.name }}</a>
-                  <div class="text-gray-500">{{ product.price }} ريال</div>
-                </div>
-              {% endfor %}
-            </div>
-          {% else %}
-            <div class="text-gray-400">لا توجد منتجات بعد.</div>
+    </div>
+    <div class="flex flex-col items-center pt-16 pb-8 px-4" style="--primary: {{ store.primary_color|default:'#2563eb' }};">
+      <h2 class="text-2xl font-bold mb-2" style="color: var(--primary);">{{ store.name }}</h2>
+      <p class="text-gray-600 mb-4 text-center">{{ store.description }}</p>
+      <div class="mt-6 w-full">
+        <h3 class="text-lg font-bold mb-2" style="color: var(--primary);">منتجات المتجر</h3>
+        <form method="get" class="mb-6 flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded">
+          <input type="text" name="q" value="{{ filters.q }}" placeholder="ابحث باسم المنتج..." class="form-input px-2 py-1 rounded border text-sm" />
+          <select name="category" class="form-input px-2 py-1 rounded border text-sm">
+            <option value="">كل التصنيفات</option>
+            {% for cat in categories %}
+              {% if cat %}<option value="{{ cat }}" {% if filters.category == cat %}selected{% endif %}>{{ cat }}</option>{% endif %}
+            {% endfor %}
+          </select>
+          <input type="number" name="price_min" value="{{ filters.price_min }}" placeholder="السعر من" class="form-input px-2 py-1 rounded border text-sm w-24" min="0" />
+          <input type="number" name="price_max" value="{{ filters.price_max }}" placeholder="السعر إلى" class="form-input px-2 py-1 rounded border text-sm w-24" min="0" />
+          <label class="flex items-center gap-1 text-sm">
+            <input type="checkbox" name="available" value="1" {% if filters.available == '1' %}checked{% endif %} class="form-checkbox">
+            متوفر فقط
+          </label>
+          <button type="submit" class="bg-primary text-white px-4 py-1 rounded hover:bg-primary/90 transition text-sm" style="background: var(--primary);">بحث</button>
+          {% if filters.q or filters.category or filters.price_min or filters.price_max or filters.available %}
+          <a href="?" class="text-gray-500 underline text-sm ml-2">إعادة تعيين</a>
           {% endif %}
-        </div>
+        </form>
+        {% if products %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {% for product in products %}
+              <div class="bg-gray-50 rounded-lg p-4 shadow flex flex-col items-center">
+                <a href="{% url 'products:product_detail' product.pk %}">
+                  {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-24 h-24 object-cover rounded mb-2">
+                  {% else %}
+                    <img src="{% static 'UD/images/default-product.png' %}" alt="بدون صورة" class="w-24 h-24 object-cover rounded mb-2">
+                  {% endif %}
+                </a>
+                <a href="{% url 'products:product_detail' product.pk %}" class="font-semibold block mt-1 hover:underline">{{ product.name }}</a>
+                <div class="text-gray-500">{{ product.price }} ريال</div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="text-gray-400">لا توجد منتجات بعد.</div>
+        {% endif %}
       </div>
     </div>
   </div>

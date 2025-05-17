@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}من نحن | Unique Design{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-16">
+    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 text-center">
+        <h1 class="text-3xl font-bold text-primary mb-6">من نحن</h1>
+        <p class="text-lg text-gray-700 mb-4">
+            منصة <span class="font-bold text-primary">Unique Design</span> هي منصة مبتكرة تتيح لأي شخص إنشاء متجره الخاص وعرض منتجاته بسهولة واحترافية.
+            هدفنا تمكين رواد الأعمال والمصممين من الوصول لعملائهم بشكل مباشر وآمن، مع الحفاظ على خصوصية كل متجر.
+        </p>
+        <div class="mb-6">
+            <img src="{% static 'UD/images/about-illustration.png' %}" alt="من نحن" class="mx-auto w-48 h-48 object-contain">
+        </div>
+        <p class="text-gray-600 mb-2">لا تظهر المتاجر للعامة، بل فقط لمن يشاركهم البائع رابط المتجر.</p>
+        <p class="text-gray-600 mb-2">جميع العمليات آمنة وسهلة، والدفع عند الاستلام.</p>
+        <p class="text-gray-600 mb-2">ندعمك في كل خطوة من رحلتك التجارية!</p>
+        <a href="/accounts/register/" class="mt-8 inline-block bg-primary text-white px-8 py-3 rounded hover:bg-primary/90 transition text-lg font-bold">سجل الآن وابدأ البيع</a>
+    </div>
+</div>
+{% endblock %} 
