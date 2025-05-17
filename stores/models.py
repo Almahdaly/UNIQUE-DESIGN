@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
+from django.urls import reverse
 
 class Store(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='store')
@@ -15,9 +16,18 @@ class Store(models.Model):
     is_active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
+        base_slug = slugify(self.name)
+        slug = base_slug
+        counter = 1
+        # إذا لم يكن هناك slug أو كان هناك تعارض مع متجر آخر
+        while Store.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+            counter += 1
+            slug = f"{base_slug}-{counter}"
+        self.slug = slug
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('stores:public_store', kwargs={'slug': self.slug})

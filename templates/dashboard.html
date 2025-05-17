@@ -9,6 +9,25 @@
             <a href="/products/my/" class="bg-primary text-white px-6 py-2 rounded hover:bg-primary/90 transition text-lg font-semibold flex items-center gap-2 shadow"><i class="ri-box-3-line"></i> منتجاتي</a>
             <a href="/orders/store-orders/" class="bg-secondary text-primary px-6 py-2 rounded hover:bg-secondary/90 transition text-lg font-semibold flex items-center gap-2 shadow"><i class="ri-list-check-2"></i> طلبات المتجر</a>
         </div>
+        <div class="bg-white rounded-xl shadow p-6 mb-8 flex flex-col md:flex-row items-center gap-4 justify-between">
+            <div>
+                <span class="font-bold text-primary">رابط متجرك:</span>
+                <span id="store-link" class="text-blue-700 break-all">{{ store_link }}</span>
+            </div>
+            <button onclick="copyStoreLink()" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition flex items-center gap-2"><i class="ri-file-copy-line"></i> نسخ الرابط</button>
+            <span id="copy-success" class="text-green-600 font-bold hidden">تم النسخ!</span>
+        </div>
+        <script>
+        function copyStoreLink() {
+            const link = document.getElementById('store-link').innerText;
+            navigator.clipboard.writeText(link).then(function() {
+                document.getElementById('copy-success').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('copy-success').classList.add('hidden');
+                }, 2000);
+            });
+        }
+        </script>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
                 <div class="text-4xl text-primary mb-2"><i class="ri-store-2-line"></i></div>

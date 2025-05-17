@@ -24,4 +24,11 @@ def seller_dashboard(request):
         'products_unavailable': products.filter(quantity=0).count(),
         'low_stock_products': products.filter(quantity__gt=0, quantity__lte=5),
     }
-    return render(request, 'dashboard.html', {'stats': stats, 'products': products, 'orders': orders, 'store': store}) 
+    store_link = request.build_absolute_uri(store.get_absolute_url())
+    return render(request, 'dashboard.html', {
+        'stats': stats,
+        'products': products,
+        'orders': orders,
+        'store': store,
+        'store_link': store_link,
+    }) 
