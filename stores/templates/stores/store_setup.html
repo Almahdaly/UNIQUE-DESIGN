@@ -74,6 +74,36 @@
               <div class="text-red-500 text-sm mt-1">{{ error }}</div>
             {% endfor %}
           </div>
+          <div class="input-wrapper">
+            {{ form.primary_color.label_tag }}
+            {{ form.primary_color }}
+            <span class="text-xs text-gray-500">لون رئيسي للواجهة</span>
+          </div>
+          <div class="input-wrapper">
+            {{ form.secondary_color.label_tag }}
+            {{ form.secondary_color }}
+            <span class="text-xs text-gray-500">لون ثانوي للواجهة</span>
+          </div>
+          <div class="input-wrapper">
+            {{ form.font.label_tag }}
+            {{ form.font }}
+            <span class="text-xs text-gray-500">اختر خط المتجر</span>
+          </div>
+          <div class="input-wrapper">
+            {{ form.welcome_message.label_tag }}
+            {{ form.welcome_message }}
+            <span class="text-xs text-gray-500">رسالة ترحيبية تظهر أعلى صفحة المتجر</span>
+          </div>
+          <div class="input-wrapper">
+            {{ form.layout.label_tag }}
+            {{ form.layout }}
+            <span class="text-xs text-gray-500">نمط عرض المنتجات (شبكة أو قائمة)</span>
+          </div>
+          <div class="input-wrapper">
+            {{ form.card_shape.label_tag }}
+            {{ form.card_shape }}
+            <span class="text-xs text-gray-500">شكل بطاقات المنتجات (دائري أو مربع)</span>
+          </div>
           <button type="submit" class="w-full bg-primary text-white py-3 rounded-button hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
             <span>حفظ التغييرات</span>
             <i class="ri-save-line"></i>

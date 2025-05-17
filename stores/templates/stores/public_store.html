@@ -4,7 +4,24 @@
 {% block title %}{{ store.name }} | Unique Design{% endblock %}
 
 {% block content %}
-<div class="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-gray-50 to-gray-100">
+<style>
+  .store-font {
+    font-family: '{{ store.font|default:'Cairo' }}', 'Cairo', 'Tajawal', 'Amiri', 'Changa', Arial, sans-serif;
+  }
+  .store-primary {
+    color: {{ store.primary_color|default:'#2563eb' }} !important;
+  }
+  .store-bg-primary {
+    background-color: {{ store.primary_color|default:'#2563eb' }} !important;
+  }
+  .store-secondary {
+    color: {{ store.secondary_color|default:'#FCBA7E' }} !important;
+  }
+  .store-bg-secondary {
+    background-color: {{ store.secondary_color|default:'#FCBA7E' }} !important;
+  }
+</style>
+<div class="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 store-font">
   <div class="w-full max-w-3xl bg-white rounded-xl shadow-lg overflow-hidden">
     <!-- صورة الغلاف -->
     <div class="w-full h-32 md:h-40 relative">
@@ -13,18 +30,21 @@
            class="w-full h-full object-cover object-center">
       <!-- الشعار فوق الغلاف -->
       <div class="absolute left-1/2 -bottom-12 transform -translate-x-1/2 z-10">
-        <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
+        <div class="w-24 h-24 {% if store.card_shape == 'rounded' %}rounded-full{% else %}rounded-none{% endif %} overflow-hidden border-4 border-white shadow-md bg-white">
           <img src="{% if store.logo %}{{ store.logo.url }}{% else %}{% static 'UD/images/default-profile.png' %}{% endif %}"
                alt="Store Logo"
                class="w-full h-full object-cover object-center">
         </div>
       </div>
     </div>
-    <div class="flex flex-col items-center pt-16 pb-8 px-4" style="--primary: {{ store.primary_color|default:'#2563eb' }};">
-      <h2 class="text-2xl font-bold mb-2" style="color: var(--primary);">{{ store.name }}</h2>
-      <p class="text-gray-600 mb-4 text-center">{{ store.description }}</p>
+    <div class="flex flex-col items-center pt-16 pb-8 px-4">
+      <h2 class="text-2xl font-bold mb-2 store-primary">{{ store.name }}</h2>
+      <p class="text-gray-600 mb-2 text-center">{{ store.description }}</p>
+      <div class="mb-4 w-full">
+        <div class="bg-gray-50 rounded p-3 text-center store-secondary text-lg font-semibold">{{ store.welcome_message }}</div>
+      </div>
       <div class="mt-6 w-full">
-        <h3 class="text-lg font-bold mb-2" style="color: var(--primary);">منتجات المتجر</h3>
+        <h3 class="text-lg font-bold mb-2 store-primary">منتجات المتجر</h3>
         <form method="get" class="mb-6 flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded">
           <input type="text" name="q" value="{{ filters.q }}" placeholder="ابحث باسم المنتج..." class="form-input px-2 py-1 rounded border text-sm" />
           <select name="category" class="form-input px-2 py-1 rounded border text-sm">
@@ -45,14 +65,14 @@
           {% endif %}
         </form>
         {% if products %}
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="{% if store.layout == 'list' %}flex flex-col gap-4{% else %}grid grid-cols-1 sm:grid-cols-2 gap-4{% endif %}">
             {% for product in products %}
-              <div class="bg-gray-50 rounded-lg p-4 shadow flex flex-col items-center">
+              <div class="bg-gray-50 shadow flex flex-col items-center p-4 border-2 {% if store.card_shape == 'rounded' %}rounded-lg{% else %}rounded-none{% endif %}">
                 <a href="{% url 'products:product_detail' product.pk %}">
                   {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-24 h-24 object-cover rounded mb-2">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-24 h-24 object-cover mb-2">
                   {% else %}
-                    <img src="{% static 'UD/images/default-product.png' %}" alt="بدون صورة" class="w-24 h-24 object-cover rounded mb-2">
+                    <img src="{% static 'UD/images/default-product.png' %}" alt="بدون صورة" class="w-24 h-24 object-cover mb-2">
                   {% endif %}
                 </a>
                 <a href="{% url 'products:product_detail' product.pk %}" class="font-semibold block mt-1 hover:underline">{{ product.name }}</a>

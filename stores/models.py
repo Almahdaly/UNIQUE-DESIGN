@@ -11,9 +11,14 @@ class Store(models.Model):
     logo = models.ImageField(upload_to='store_logos/', blank=True, null=True)
     cover = models.ImageField(upload_to='store_covers/', blank=True, null=True)
     primary_color = models.CharField(max_length=7, blank=True, default='#2563eb')  # لون افتراضي أزرق
+    secondary_color = models.CharField(max_length=7, blank=True, default='#FCBA7E')  # لون ثانوي افتراضي
+    font = models.CharField(max_length=50, blank=True, default='Cairo')  # خط افتراضي
+    welcome_message = models.CharField(max_length=255, blank=True, default='مرحبًا بكم في متجري!')
+    layout = models.CharField(max_length=20, choices=[('grid', 'شبكة'), ('list', 'قائمة')], default='grid')
     slug = models.SlugField(unique=True, blank=True, max_length=120)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
+    card_shape = models.CharField(max_length=10, choices=[('rounded', 'دائري'), ('square', 'مربع')], default='rounded')
 
     def save(self, *args, **kwargs):
         base_slug = slugify(self.name)
