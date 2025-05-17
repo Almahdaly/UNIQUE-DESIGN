@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto py-12">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold text-primary mb-8">لوحة تحكم البائع</h1>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                <div class="text-4xl text-primary mb-2"><i class="ri-store-2-line"></i></div>
+                <div class="text-lg font-bold">عدد المنتجات</div>
+                <div class="text-2xl">{{ stats.products_count }}</div>
+            </div>
+            <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                <div class="text-4xl text-yellow-500 mb-2"><i class="ri-shopping-bag-3-line"></i></div>
+                <div class="text-lg font-bold">طلبات قيد التنفيذ</div>
+                <div class="text-2xl">{{ stats.orders_pending }}</div>
+            </div>
+            <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                <div class="text-4xl text-green-600 mb-2"><i class="ri-checkbox-circle-line"></i></div>
+                <div class="text-lg font-bold">طلبات منفذة</div>
+                <div class="text-2xl">{{ stats.orders_delivered }}</div>
+            </div>
+            <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                <div class="text-4xl text-red-500 mb-2"><i class="ri-error-warning-line"></i></div>
+                <div class="text-lg font-bold">منتجات غير متوفرة</div>
+                <div class="text-2xl">{{ stats.products_unavailable }}</div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow p-6">
+                <h2 class="text-xl font-bold text-primary mb-4">منتجات على وشك النفاد</h2>
+                {% if stats.low_stock_products %}
+                <ul class="space-y-2">
+                    {% for product in stats.low_stock_products %}
+                    <li class="flex justify-between items-center">
+                        <span>{{ product.name }}</span>
+                        <span class="text-red-500 font-bold">({{ product.quantity }})</span>
+                        <a href="{% url 'products:my_products' %}?edit={{ product.id }}" class="text-blue-600 hover:underline text-sm">تعديل</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="text-gray-500">لا توجد منتجات على وشك النفاد.</div>
+                {% endif %}
+            </div>
+            <div class="bg-white rounded-xl shadow p-6">
+                <h2 class="text-xl font-bold text-primary mb-4">روابط سريعة</h2>
+                <ul class="space-y-3">
+                    <li><a href="/store/my-store/" class="text-primary hover:underline font-semibold"><i class="ri-settings-3-line"></i> إعدادات المتجر</a></li>
+                    <li><a href="/products/my/" class="text-primary hover:underline font-semibold"><i class="ri-box-3-line"></i> إدارة المنتجات</a></li>
+                    <li><a href="/orders/store-orders/" class="text-primary hover:underline font-semibold"><i class="ri-list-check-2"></i> إدارة الطلبات</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 mt-8">
+            <h2 class="text-xl font-bold text-primary mb-4">آخر الطلبات</h2>
+            {% if orders %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-center">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="py-2 px-4">#</th>
+                            <th class="py-2 px-4">المنتج</th>
+                            <th class="py-2 px-4">العميل</th>
+                            <th class="py-2 px-4">الحالة</th>
+                            <th class="py-2 px-4">تاريخ الطلب</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders|slice:':5' %}
+                        <tr class="border-b">
+                            <td class="py-2 px-4">{{ forloop.counter }}</td>
+                            <td class="py-2 px-4">{{ order.product.name }}</td>
+                            <td class="py-2 px-4">{{ order.customer.full_name }}</td>
+                            <td class="py-2 px-4">
+                                {% if order.status == 'pending' %}
+                                    <span class="text-yellow-600 font-bold">قيد التنفيذ</span>
+                                {% elif order.status == 'delivered' %}
+                                    <span class="text-green-600 font-bold">تم التوصيل</span>
+                                {% elif order.status == 'cancelled' %}
+                                    <span class="text-red-600 font-bold">ملغي</span>
+                                {% endif %}
+                            </td>
+                            <td class="py-2 px-4">{{ order.created_at|date:'Y-m-d H:i' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-gray-500">لا توجد طلبات بعد.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

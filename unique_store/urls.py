@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from unique_store.views import home
+from unique_store.views import home, seller_dashboard
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -26,6 +26,8 @@ urlpatterns = [
     path('', home, name='home'),
     path('store/', include('stores.urls', namespace='stores')),
     path('products/', include('products.urls', namespace='products')),
+    path('dashboard/', seller_dashboard, name='seller_dashboard'),
+    path('orders/', include('orders.urls', namespace='orders')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

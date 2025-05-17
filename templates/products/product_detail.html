@@ -29,6 +29,14 @@
                     <span class="inline-block bg-red-100 text-red-700 px-3 py-1 rounded">غير متوفر</span>
                 {% endif %}
             </div>
+            {% if user.is_authenticated and user.user_type == 'customer' and product.is_available and product.quantity > 0 %}
+            <form method="post" action="{% url 'orders:create_order' product.id %}" class="mt-4">
+                {% csrf_token %}
+                <button type="submit" class="bg-primary text-white px-6 py-2 rounded hover:bg-primary/90 transition w-full">اطلب الآن</button>
+            </form>
+            {% elif not user.is_authenticated %}
+            <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="mt-4 inline-block bg-primary text-white px-6 py-2 rounded hover:bg-primary/90 transition w-full text-center">سجّل الدخول للطلب</a>
+            {% endif %}
             <a href="{% url 'stores:public_store' product.store.slug %}" class="mt-6 inline-block text-primary hover:underline">العودة إلى المتجر</a>
         </div>
     </div>

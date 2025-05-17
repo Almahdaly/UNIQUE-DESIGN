@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto py-12">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-2xl font-bold text-primary mb-6">طلبات المتجر</h1>
+        <form method="get" class="mb-6 flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded">
+            <span class="font-semibold">تصفية:</span>
+            <input type="text" name="product" value="{{ request.GET.product }}" placeholder="اسم المنتج" class="form-input px-2 py-1 rounded border text-sm" />
+            <input type="text" name="customer" value="{{ request.GET.customer }}" placeholder="اسم العميل أو البريد" class="form-input px-2 py-1 rounded border text-sm" />
+            <input type="date" name="date_from" value="{{ request.GET.date_from }}" class="form-input px-2 py-1 rounded border text-sm" />
+            <input type="date" name="date_to" value="{{ request.GET.date_to }}" class="form-input px-2 py-1 rounded border text-sm" />
+            <select name="status" class="form-input px-2 py-1 rounded border text-sm">
+                <option value="">كل الحالات</option>
+                {% for value, label in status_choices %}
+                    <option value="{{ value }}" {% if current_status == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="bg-primary text-white px-4 py-1 rounded hover:bg-primary/90 transition text-sm">بحث</button>
+            {% if request.GET %}
+            <a href="?" class="text-gray-500 underline text-sm ml-2">إعادة تعيين</a>
+            {% endif %}
+        </form>
+        {% if orders %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-center">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="py-2 px-4">#</th>
+                        <th class="py-2 px-4">المنتج</th>
+                        <th class="py-2 px-4">العميل</th>
+                        <th class="py-2 px-4">البريد الإلكتروني</th>
+                        <th class="py-2 px-4">الكمية</th>
+                        <th class="py-2 px-4">الحالة</th>
+                        <th class="py-2 px-4">تاريخ الطلب</th>
+                        <th class="py-2 px-4">تغيير الحالة</th>
+                        <th class="py-2 px-4">تفاصيل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr class="border-b">
+                        <td class="py-2 px-4">{{ forloop.counter }}</td>
+                        <td class="py-2 px-4">
+                            <a href="{% url 'products:product_detail' order.product.id %}" class="text-primary hover:underline">{{ order.product.name }}</a>
+                        </td>
+                        <td class="py-2 px-4">{{ order.customer.full_name }}</td>
+                        <td class="py-2 px-4">{{ order.customer.email }}</td>
+                        <td class="py-2 px-4">{{ order.quantity }}</td>
+                        <td class="py-2 px-4">
+                            {% if order.status == 'pending' %}
+                                <span class="text-yellow-600 font-bold">قيد التنفيذ</span>
+                            {% elif order.status == 'delivered' %}
+                                <span class="text-green-600 font-bold">تم التوصيل</span>
+                            {% elif order.status == 'cancelled' %}
+                                <span class="text-red-600 font-bold">ملغي</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-2 px-4">{{ order.created_at|date:'Y-m-d H:i' }}</td>
+                        <td class="py-2 px-4">
+                            <form method="post" action="" class="flex items-center gap-2">
+                                {% csrf_token %}
+                                <input type="hidden" name="order_id" value="{{ order.id }}">
+                                <select name="status" class="form-input px-2 py-1 rounded border">
+                                    {% for value, label in status_choices %}
+                                        <option value="{{ value }}" {% if order.status == value %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="bg-primary text-white px-3 py-1 rounded hover:bg-primary/90 transition text-sm">حفظ</button>
+                            </form>
+                        </td>
+                        <td class="py-2 px-4">
+                            <button type="button" class="text-blue-600 hover:underline" onclick="showOrderModal({{ order.id }})">تفاصيل</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-gray-500 text-center py-8">لا توجد طلبات بعد.</div>
+        {% endif %}
+    </div>
+</div>
+
+{% for order in orders %}
+<div id="order-modal-{{ order.id }}" class="fixed inset-0 z-50 hidden bg-black/40 flex items-center justify-center">
+    <div class="bg-white rounded-xl shadow-lg max-w-md w-full p-6 relative animate-fade-in">
+        <button onclick="closeOrderModal({{ order.id }})" class="absolute top-2 left-2 text-gray-400 hover:text-primary text-2xl">&times;</button>
+        <h2 class="text-xl font-bold text-primary mb-4">تفاصيل الطلب #{{ order.id }}</h2>
+        <div class="mb-2"><span class="font-semibold">المنتج:</span> <a href="{% url 'products:product_detail' order.product.id %}" class="text-primary hover:underline">{{ order.product.name }}</a></div>
+        <div class="mb-2"><span class="font-semibold">العميل:</span> {{ order.customer.full_name }} ({{ order.customer.email }})</div>
+        <div class="mb-2"><span class="font-semibold">الكمية:</span> {{ order.quantity }}</div>
+        <div class="mb-2"><span class="font-semibold">الحالة:</span> {{ order.get_status_display }}</div>
+        <div class="mb-2"><span class="font-semibold">تاريخ الطلب:</span> {{ order.created_at|date:'Y-m-d H:i' }}</div>
+        <div class="mb-2"><span class="font-semibold">المتجر:</span> <a href="{% url 'stores:public_store' order.store.slug %}" class="text-primary hover:underline">{{ order.store.name }}</a></div>
+        {% if order.product.image %}
+        <div class="mb-2"><img src="{{ order.product.image.url }}" alt="{{ order.product.name }}" class="w-32 h-32 object-cover rounded border mx-auto"></div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// تأكيد قبل تغيير حالة الطلب
+const forms = document.querySelectorAll('form[action=""]');
+forms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+        const select = form.querySelector('select[name="status"]');
+        const statusText = select.options[select.selectedIndex].text;
+        if (!confirm('هل أنت متأكد من تغيير حالة الطلب إلى: ' + statusText + '؟')) {
+            e.preventDefault();
+        }
+    });
+});
+// عرض وإغلاق البوب-أب
+function showOrderModal(id) {
+    document.getElementById('order-modal-' + id).classList.remove('hidden');
+}
+function closeOrderModal(id) {
+    document.getElementById('order-modal-' + id).classList.add('hidden');
+}
+// إغلاق عند الضغط خارج البوب-أب
+window.addEventListener('click', function(e) {
+    document.querySelectorAll('[id^="order-modal-"]').forEach(function(modal) {
+        if (!modal.classList.contains('hidden') && e.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+});
+</script>
+{% endblock %} 

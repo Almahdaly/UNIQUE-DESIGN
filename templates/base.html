@@ -24,11 +24,18 @@
             <a href="/" class="text-gray-600 hover:text-primary">الرئيسية</a>
             {% if user.is_authenticated %}
                 <a href="/store/my-store/" class="text-gray-600 hover:text-primary">متجري</a>
+                {% if user.user_type == 'customer' %}
+                <a href="/orders/my/" class="text-gray-600 hover:text-primary">طلباتي</a>
+                {% endif %}
+                {% if user.user_type == 'seller' %}
+                <a href="/dashboard/" class="text-gray-600 hover:text-primary font-bold">لوحة التحكم</a>
+                <a href="/orders/store-orders/" class="text-gray-600 hover:text-primary">طلبات المتجر</a>
+                {% endif %}
                 <a href="/accounts/profile/" class="text-gray-600 hover:text-primary">ملفي الشخصي</a>
                 <a href="/accounts/logout/" class="text-gray-600 hover:text-primary">تسجيل الخروج</a>
             {% else %}
                 <a href="/accounts/login/" class="text-gray-600 hover:text-primary">تسجيل الدخول</a>
-                <a href="/accounts/signup/" class="text-gray-600 hover:text-primary">إنشاء حساب</a>
+                <a href="/accounts/register/" class="text-gray-600 hover:text-primary">إنشاء حساب</a>
             {% endif %}
         </nav>
     </header>

@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Store
 from .forms import StoreForm
+from django.db.models import Q
 
 @login_required
 def setup_store(request):
@@ -34,11 +35,36 @@ def public_store(request, slug):
     store = Store.objects.filter(slug=slug, is_active=True).first()
     if not store:
         return render(request, '404.html', status=404)
-    # جلب المنتجات الفعلية المرتبطة بالمتجر
     products = store.products.all()
+    # فلاتر البحث
+    name_q = request.GET.get('q', '').strip()
+    category = request.GET.get('category', '').strip()
+    price_min = request.GET.get('price_min', '').strip()
+    price_max = request.GET.get('price_max', '').strip()
+    available = request.GET.get('available')
+    if name_q:
+        products = products.filter(name__icontains=name_q)
+    if category:
+        products = products.filter(category__icontains=category)
+    if price_min:
+        products = products.filter(price__gte=price_min)
+    if price_max:
+        products = products.filter(price__lte=price_max)
+    if available == '1':
+        products = products.filter(is_available=True, quantity__gt=0)
+    # جلب التصنيفات الفريدة
+    categories = store.products.values_list('category', flat=True).distinct()
     return render(request, 'stores/public_store.html', {
         'store': store,
         'products': products,
+        'categories': categories,
+        'filters': {
+            'q': name_q,
+            'category': category,
+            'price_min': price_min,
+            'price_max': price_max,
+            'available': available,
+        }
     })
 
 # Create your views here.
