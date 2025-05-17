@@ -7,6 +7,9 @@ from django.db.models import Q
 
 @login_required
 def setup_store(request):
+    if request.user.user_type != 'seller':
+        messages.error(request, 'هذه الصفحة مخصصة للبائعين فقط.')
+        return redirect('/')
     try:
         store = Store.objects.get(user=request.user)
         is_new = False

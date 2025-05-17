@@ -25,12 +25,12 @@
         <nav class="flex items-center gap-6">
             <a href="/" class="text-gray-600 hover:text-primary">الرئيسية</a>
             {% if user.is_authenticated %}
+                {% if user.user_type == 'seller' %}
                 <a href="/store/my-store/" class="text-gray-600 hover:text-primary">متجري</a>
+                <a href="/dashboard/" class="text-gray-600 hover:text-primary font-bold">لوحة التحكم</a>
+                {% endif %}
                 {% if user.user_type == 'customer' %}
                 <a href="/orders/my/" class="text-gray-600 hover:text-primary">طلباتي</a>
-                {% endif %}
-                {% if user.user_type == 'seller' %}
-                <a href="/dashboard/" class="text-gray-600 hover:text-primary font-bold">لوحة التحكم</a>
                 {% endif %}
                 <a href="/accounts/profile/" class="text-gray-600 hover:text-primary">ملفي الشخصي</a>
                 <a href="/accounts/logout/" class="text-gray-600 hover:text-primary">تسجيل الخروج</a>

@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+{% if user.user_type == 'seller' %}
 <div class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gray-50 to-gray-100">
   <div class="w-full max-w-3xl bg-white rounded-xl shadow-lg overflow-hidden">
     <div class="flex flex-col md:flex-row">
@@ -133,4 +134,12 @@ closeBtns.forEach(btn => {
   });
 });
 </script>
+{% else %}
+<div class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+    <h2 class="text-2xl font-bold text-red-600 mb-4">هذه الصفحة مخصصة للبائعين فقط</h2>
+    <a href="/" class="text-primary underline">العودة للرئيسية</a>
+  </div>
+</div>
+{% endif %}
 {% endblock %} 
